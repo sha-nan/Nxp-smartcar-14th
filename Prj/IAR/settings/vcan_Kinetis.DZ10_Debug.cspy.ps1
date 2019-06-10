@@ -23,9 +23,9 @@
 
 if ($debugfile -eq "")
 {
-& "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.2\common\bin\cspybat" -f "D:\17849\Documents\Project\k60工程\Nxp-smartcar-14th\Prj\IAR\settings\vcan_Kinetis.DZ10_Debug.general.xcl" --backend -f "D:\17849\Documents\Project\k60工程\Nxp-smartcar-14th\Prj\IAR\settings\vcan_Kinetis.DZ10_Debug.driver.xcl" 
+& "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.2\common\bin\cspybat" -f "D:\17849\Documents\Project\k60工程\黑曼巴24.1（四电感）\Prj\IAR\settings\vcan_Kinetis.DZ10_Debug.general.xcl" --backend -f "D:\17849\Documents\Project\k60工程\黑曼巴24.1（四电感）\Prj\IAR\settings\vcan_Kinetis.DZ10_Debug.driver.xcl" 
 }
 else
 {
-& "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.2\common\bin\cspybat" -f "D:\17849\Documents\Project\k60工程\Nxp-smartcar-14th\Prj\IAR\settings\vcan_Kinetis.DZ10_Debug.general.xcl" --debug_file=$debugfile --backend -f "D:\17849\Documents\Project\k60工程\Nxp-smartcar-14th\Prj\IAR\settings\vcan_Kinetis.DZ10_Debug.driver.xcl" 
+& "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.2\common\bin\cspybat" -f "D:\17849\Documents\Project\k60工程\黑曼巴24.1（四电感）\Prj\IAR\settings\vcan_Kinetis.DZ10_Debug.general.xcl" --debug_file=$debugfile --backend -f "D:\17849\Documents\Project\k60工程\黑曼巴24.1（四电感）\Prj\IAR\settings\vcan_Kinetis.DZ10_Debug.driver.xcl" 
 }
