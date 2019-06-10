@@ -316,27 +316,29 @@ float Dis_Run = 0.0;
 
 void Run_Control(void)
 { 
+
+      turn_error=1000.0*(m_sqrt(sensor1+sensor2)-m_sqrt(sensor4+sensor3))/(sensor1+sensor4+sensor2+sensor3);     
   
 //    turn_error=1000.0000*(m_sqrt(sensor1+sensor2)-m_sqrt(sensor3+sensor4))/(sensor1+sensor4+sensor2+sensor3);
 //  turn_error=800.0000*(m_sqrt(sensor1)-m_sqrt(sensor4))/(sensor1+sensor4)+ 200.00*(m_sqrt(sensor2)+m_sqrt(sensor3))/(sensor2+sensor3);
   switch(Run_state)
   { 
     case normal_Run://开机正常起步
-        turn_error=1000.00*(m_sqrt(sensor1)-m_sqrt(sensor4))/(sensor1+sensor4);
+//        turn_error=1000.00*(m_sqrt(sensor1)-m_sqrt(sensor4))/(sensor1+sensor4);
         Run_Flag = 1;
         Run_state = Wait_Ring;
         if(sensor1==1&&sensor2==1&&sensor3==1&&sensor4==1) Run_state = Stop;//冲出赛道保护
      break;
     
     case Wait_Ring://等待环岛
-        turn_error=1000.00*(m_sqrt(sensor1)-m_sqrt(sensor4))/(sensor1+sensor4);
+//        turn_error=1000.00*(m_sqrt(sensor1)-m_sqrt(sensor4))/(sensor1+sensor4);
         Run_Flag = 1;
         Run_state = Running;
         if(sensor1==1&&sensor2==1&&sensor3==1&&sensor4==1)  Run_state = Stop;//冲出赛道保护
      break;
     
     case Running://正常跑
-        turn_error=1000.00*(m_sqrt(sensor1)-m_sqrt(sensor4))/(sensor1+sensor4);
+//        turn_error=1000.00*(m_sqrt(sensor1)-m_sqrt(sensor4))/(sensor1+sensor4);
         Run_Flag = 1;
 //	Ring_Control();//环岛检测
 	if(sensor1==1&&sensor2==1&&sensor3==1&&sensor4==1)  Run_state = Stop;//冲出赛道保护
@@ -502,36 +504,35 @@ int16 turn_out_cal()//舵机控制(位置式PD);float kp,float kd
       }
    else
    {  
-      turn_error=1000.0*(m_sqrt(sensor1+sensor2)-m_sqrt(sensor4+sensor3))/(sensor1+sensor4+sensor2+sensor3);     
       if(abs(turn_error)<=100)
       {
         float kp,kd;
-        kp=8.00;
-        kd=0.00;
+        kp=6.00;
+        kd=10.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=2;        
       }     
       else if(abs(turn_error)<=200)
       {
         float kp,kd;
-        kp=16.00;
-        kd=0.00;
+        kp=10.00;
+        kd=20.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=3;        
       }      
       else if(abs(turn_error)<=300)
       {
         float kp,kd;
-        kp=24.00;
-        kd=0.00;
+        kp=16.00;
+        kd=30.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=4;
       }     
       else if(abs(turn_error)<=400)
       {
         float kp,kd;
-        kp=32.00;
-        kd=0.00;
+        kp=24.00;
+        kd=40.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=5;        
       }
@@ -539,48 +540,48 @@ int16 turn_out_cal()//舵机控制(位置式PD);float kp,float kd
       {
         
         float kp,kd;
-        kp=40.00;
-        kd=0.00;
+        kp=28.00;
+        kd=50.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd; 
         Speed_Flag=6;
       }
       else if(abs(turn_error)<=600)
       {
         float kp,kd;
-        kp=48.00;
-        kd=0.00;
+        kp=32.00;
+        kd=60.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=7;        
       }
       else if(abs(turn_error)<=700)
       {
         float kp,kd;
-        kp=56.00;
-        kd=0.00;
+        kp=34.00;
+        kd=70.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=8;        
       } 
       else if(abs(turn_error)<=800)
       {
         float kp,kd;
-        kp=64.00;
-        kd=0.00;
+        kp=38.00;
+        kd=80.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=9;        
       } 
       else if(abs(turn_error)<=900)
       {
         float kp,kd;
-        kp=72.00;
-        kd=0.00;
+        kp=42.00;
+        kd=90.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;\
         Speed_Flag=10;          
       }       
       else 
       {
         float kp,kd;
-        kp=81.00;
-        kd=0.00;
+        kp=46.00;
+        kd=100.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=11;        
       }
