@@ -4963,7 +4963,7 @@
                 </option>
                 <option>
                     <name>IlinkIcfFile</name>
-                    <state>D:\17849\Documents\Project\k60工程\黑曼巴24.1（四电感）\Prj\IAR\config files\vcan_ROM_K60N512.icf</state>
+                    <state>D:\17849\Documents\Project\k60工程\Nxp-smartcar-14th\Prj\IAR\config files\vcan_ROM_K60N512.icf</state>
                 </option>
                 <option>
                     <name>IlinkIcfFileSlave</name>
