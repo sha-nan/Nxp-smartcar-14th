@@ -95,7 +95,8 @@ void main()
 //             printf("turn_out=%4d\n",turn_out);
 //             error_flag=1;
 //           }
-           
+
+      
            uint8 L1[8]={0},L2[8]={0},Re[8]={0};
            sprintf((char*)L1,"L:%5d",LeftWheel_Count);
             LCD_single_P8x16Str(0,0,L1);
