@@ -46,7 +46,7 @@ void main()
 int RightWheel_Count,LeftWheel_Count;
 extern int Real_Speed,Out_Speed,Speed_Error;
 
-  void main()
+void main()
 {
     DisableInterrupts;//禁止全部中断
     wildWolf_init();//初始化
@@ -69,15 +69,15 @@ extern int Real_Speed,Out_Speed,Speed_Error;
 //         Zhangai_Flag=0;//清除标志位
 //       }
           
-           uint8 S1[8],S2[8],S3[8],S4[8];
-           sprintf((uint8*)S1," S1:%4d S2:%4d",sensor1,sensor2);
-            LCD_single_P8x16Str(0,0,S1);
-           sprintf((uint8*)S2," S3:%4d S4:%4d",sensor3,sensor4);
-            LCD_single_P8x16Str(0,2,S2);
-           sprintf((uint8*)S3," S5:%4d Vol:%3.1f",sensor5,Vol);
-            LCD_single_P8x16Str(0,4,S3);
-           sprintf((uint8*)S4," Error:%4d ",(sensor1-sensor4));
-            LCD_single_P8x16Str(0,6,S4);      
+//           uint8 S1[8],S2[8],S3[8],S4[8];
+//           sprintf((uint8*)S1," S1:%4d S2:%4d",sensor1,sensor2);
+//            LCD_single_P8x16Str(0,0,S1);
+//           sprintf((uint8*)S2," S3:%4d S4:%4d",sensor3,sensor4);
+//            LCD_single_P8x16Str(0,2,S2);
+//           sprintf((uint8*)S3," S5:%4d Vol:%3.1f",sensor5,Vol);
+//            LCD_single_P8x16Str(0,4,S3);
+//           sprintf((uint8*)S4," Error:%4d ",(sensor1-sensor4));
+//            LCD_single_P8x16Str(0,6,S4);      
 
 //            printf("s1=%4d\n ",sensor1);
 //            printf("terror:%4.4f\n",turn_error);
@@ -96,13 +96,13 @@ extern int Real_Speed,Out_Speed,Speed_Error;
 //             error_flag=1;
 //           }
            
-//           uint8 L1[8]={0},L2[8]={0},Re[8]={0};
-//           sprintf((char*)L1,"L:%5d",LeftWheel_Count);
-//            LCD_single_P8x16Str(0,0,L1);
-//           sprintf((char*)L2,"R:%5d",RightWheel_Count);
-//            LCD_single_P8x16Str(0,2,L2);
-//           sprintf((char*)Re,"Re:%5d",Real_Speed);
-//            LCD_single_P8x16Str(0,4,Re);
+           uint8 L1[8]={0},L2[8]={0},Re[8]={0};
+           sprintf((char*)L1,"L:%5d",LeftWheel_Count);
+            LCD_single_P8x16Str(0,0,L1);
+           sprintf((char*)L2,"R:%5d",RightWheel_Count);
+            LCD_single_P8x16Str(0,2,L2);
+           sprintf((char*)Re,"Re:%5d",Real_Speed);
+            LCD_single_P8x16Str(0,4,Re);
 
 //      if(!Run_Flag)
 //      {
