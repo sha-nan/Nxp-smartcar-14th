@@ -134,7 +134,7 @@ void SC_black_Init(void)
        pit_delay_ms(PIT3,200);//—” ±10ms
   }
   BEEP_ON;//∑‰√˘∆˜
-  pit_delay_ms(PIT3,100.00);//—” ±10ms
+  pit_delay_ms(PIT3,1000);//—” ±10ms
   BEEP_OFF;//∑‰√˘∆˜
   OLED_Init(); //OLED≥ı ºªØ
 
@@ -313,11 +313,12 @@ uint16 m_sqrt(uint16 x)
 uint8 Run_state=0;
 uint8 Run_Flag;
 float Dis_Run = 0.0;
-
+extern int k;
 void Run_Control(void)
 { 
 
-      turn_error=1000.0*(m_sqrt(sensor1+sensor2)-m_sqrt(sensor4+sensor3))/(sensor1+sensor4+sensor2+sensor3);     
+//  if(500==k) Run_state = Stop;
+  turn_error=1000.0*(m_sqrt(sensor1+sensor2)-m_sqrt(sensor4+sensor3))/(sensor1+sensor4+sensor2+sensor3);     
   
 //    turn_error=1000.0000*(m_sqrt(sensor1+sensor2)-m_sqrt(sensor3+sensor4))/(sensor1+sensor4+sensor2+sensor3);
 //  turn_error=800.0000*(m_sqrt(sensor1)-m_sqrt(sensor4))/(sensor1+sensor4)+ 200.00*(m_sqrt(sensor2)+m_sqrt(sensor3))/(sensor2+sensor3);

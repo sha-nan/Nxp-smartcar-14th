@@ -50,16 +50,15 @@ void PIT1_IRQHandler(void)//速度计算中断服务函数
 /********************速度控制********************************/
 float Speed_P,Speed_I,Speed_D;
 extern int RightWheel_Count,LeftWheel_Count,k=0,p=0;
-int c;
 void get_speed()//速度计算
 {
-      k=p++;
-      Real_Speed = (LeftWheel_Count+RightWheel_Count)/2; //车身速度 
+      k=p++;    
       Left_Speed = LeftWheel_Count;//左电机速度
       Right_Speed = RightWheel_Count;//右电机速度
-      c = Real_Speed++;
+      Real_Speed = (Left_Speed+Right_Speed)/2; //车身速度 
+      
       if(0!=Real_Speed&&0!=Left_Speed)
-      printf("times:%4d\n Re=%4d\n" ,k,Real_Speed++);
+      printf("times:%4d\n Re=%4d\n" ,k,Real_Speed);
       
       LeftWheel_Count=0;
       RightWheel_Count=0;//清零测速数据，等于是每50ms计数一次

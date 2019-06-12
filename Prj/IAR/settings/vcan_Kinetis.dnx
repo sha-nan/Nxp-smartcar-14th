@@ -16,7 +16,7 @@
         <LeaveTargetRunning>_ 0</LeaveTargetRunning>
     </JLinkDriver>
     <DebugChecksum>
-        <Checksum>459241115</Checksum>
+        <Checksum>1043325971</Checksum>
     </DebugChecksum>
     <CodeCoverage>
         <Enabled>_ 0</Enabled>

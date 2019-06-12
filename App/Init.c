@@ -37,7 +37,7 @@ void wildWolf_init(void)//初始化
        FTM_PWM_Duty(FTM1, FTM_CH0,1082);
        Motor_init();//电机初始化
        Ftm_input_init();//初始化FTM输入捕捉模式，编码器
-       port_init (PTB21, IRQ_FALLING | PF | ALT1 | PULLUP );
+       port_init (PTB21, IRQ_ZERO | PF | ALT1 | PULLUP );
    /************************* 配置中断优先级  ************************/    
        NVIC_SetPriorityGrouping(NVIC_PriorityGroup_4);
        NVIC_SetPriority(PORTB_IRQn,0);          //第一优先: 红外检测中断

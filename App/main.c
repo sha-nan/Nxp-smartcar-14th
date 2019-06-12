@@ -14,7 +14,7 @@ extern float turn_error,pre_turn_error;
 extern uint8 Run_Flag;
 uint8 error_flag=1;
 extern int16 turn_out;//舵机输出
-
+int c=0;
 /*函数声明*/
 
 extern void PORTB_IRQHandler();//PORTB中断服务函数
@@ -44,7 +44,7 @@ void main()
 ******************************************************************************/
 #if 1
 int RightWheel_Count,LeftWheel_Count;
-extern int Real_Speed,Out_Speed,Speed_Error;
+extern int Real_Speed,Out_Speed,Speed_Error,k;
 
 void main()
 {
@@ -58,17 +58,16 @@ void main()
 //      AD_Date_analyse();
 //      Run_Control();
 //      FTM_PWM_Duty(FTM1, FTM_CH0, turn_out_cal());
-//      turn_control();
-//      if(Zhangai_Flag==0)
+
+//      if(0==Zhangai_Flag)
 //        {
 //           FTM_PWM_Duty(FTM1, FTM_CH0, turn_out_cal());           
 //        }
 //      else
 //       {
 //         zhangaichuli();
-//         Zhangai_Flag=0;//清除标志位
 //       }
-          
+//          
 //           uint8 S1[8],S2[8],S3[8],S4[8];
 //           sprintf((uint8*)S1," S1:%4d S2:%4d",sensor1,sensor2);
 //            LCD_single_P8x16Str(0,0,S1);
@@ -151,10 +150,25 @@ void main()
 
 void zhangaichuli()//路障处理
 {
-         FTM_PWM_Duty(FTM1, FTM_CH0,1010);
-         pit_delay_ms(PIT3,540);
-         FTM_PWM_Duty(FTM1, FTM_CH0,1137);
-         pit_delay_ms(PIT3,480);
+    if(1==Zhangai_Flag&&1 == c)
+    {
+     FTM_PWM_Duty(FTM1, FTM_CH0,1010);
+     pit_delay_ms(PIT2,500);//延时1000ms
+//     FTM_PWM_Duty(FTM1, FTM_CH0,1082);
+//     pit_delay_ms(PIT2,200);//延时1000ms
+     FTM_PWM_Duty(FTM1, FTM_CH0,1160);
+     pit_delay_ms(PIT2,700);//延时1000ms
+     FTM_PWM_Duty(FTM1, FTM_CH0,1082);
+     pit_delay_ms(PIT2,600);//延时1000ms    
+     Zhangai_Flag=0;//清除标志位
+    }
+    else
+    {
+      FTM_PWM_Duty(FTM1, FTM_CH0, turn_out_cal());           
+    }      
+    
+    
+
 }
 /*!
  *  @brief      PORTC中断服务函数
@@ -162,15 +176,16 @@ void zhangaichuli()//路障处理
  */
 void PORTB_IRQHandler()
 {
-    
+    PORTB_ISFR  = ~0; //清中断标志位
     uint8  n = 0;    //引脚号
     n = 21;   //PTB21触发中断，低电平触发
     if(PORTB_ISFR & (1 << n))
     {
        /*     用户任务       */
-        Zhangai_Flag=1;     
+      c=c++;
+      Zhangai_Flag=1;
+      zhangaichuli();
     }
-    PORTB_ISFR  = ~0; //清中断标志位
 }
 
 /*
