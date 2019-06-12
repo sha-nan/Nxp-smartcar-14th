@@ -157,7 +157,7 @@ void zhangaichuli()//路障处理
 //     FTM_PWM_Duty(FTM1, FTM_CH0,1082);
 //     pit_delay_ms(PIT2,200);//延时1000ms
      FTM_PWM_Duty(FTM1, FTM_CH0,1160);
-     pit_delay_ms(PIT2,700);//延时1000ms
+     pit_delay_ms(PIT2,600);//延时1000ms
      FTM_PWM_Duty(FTM1, FTM_CH0,1082);
      pit_delay_ms(PIT2,600);//延时1000ms    
      Zhangai_Flag=0;//清除标志位

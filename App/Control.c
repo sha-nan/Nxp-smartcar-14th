@@ -92,8 +92,8 @@ void Speed_Control()
       Speed_I=0.1;
       Speed_D=0.0;
       Car_Sudu=210;
-      Turn_KP=3.0;
-      Turn_KD=0.6;      
+      Turn_KP=2.0;
+      Turn_KD=0.2;      
 //    }
 //   else if(2==Speed_Flag)
 //    {
