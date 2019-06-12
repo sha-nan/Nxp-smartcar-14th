@@ -498,7 +498,7 @@ int16 turn_out_cal()//舵机控制(位置式PD);float kp,float kd
       {
         turn_error=100.00*(sensor1-sensor4)/(sensor1+sensor4);
         float kp,kd;
-        kp=5.00;
+        kp=20.00;
         kd=10.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=1;
@@ -508,16 +508,16 @@ int16 turn_out_cal()//舵机控制(位置式PD);float kp,float kd
       if(abs(turn_error)<=100)
       {
         float kp,kd;
-        kp=5.00;
-        kd=35.00;
+        kp=10.00;
+        kd=15.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=2;        
       }     
       else if(abs(turn_error)<=200)
       {
         float kp,kd;
-        kp=10.00;
-        kd=45.00;
+        kp=11.00;
+        kd=35.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=3;        
       }      
@@ -525,15 +525,15 @@ int16 turn_out_cal()//舵机控制(位置式PD);float kp,float kd
       {
         float kp,kd;
         kp=12.00;
-        kd=55.00;
+        kd=45.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=4;
       }     
       else if(abs(turn_error)<=400)
       {
         float kp,kd;
-        kp=14.00;
-        kd=65.00;
+        kp=13.00;
+        kd=55.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=5;        
       }
@@ -542,7 +542,7 @@ int16 turn_out_cal()//舵机控制(位置式PD);float kp,float kd
         
         float kp,kd;
         kp=16.00;
-        kd=75.00;
+        kd=65.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd; 
         Speed_Flag=6;
       }
@@ -550,7 +550,7 @@ int16 turn_out_cal()//舵机控制(位置式PD);float kp,float kd
       {
         float kp,kd;
         kp=18.00;
-        kd=85.00;
+        kd=75.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=7;        
       }
@@ -558,7 +558,7 @@ int16 turn_out_cal()//舵机控制(位置式PD);float kp,float kd
       {
         float kp,kd;
         kp=20.00;
-        kd=95.00;
+        kd=85.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=8;        
       } 
@@ -566,7 +566,7 @@ int16 turn_out_cal()//舵机控制(位置式PD);float kp,float kd
       {
         float kp,kd;
         kp=22.00;
-        kd=105.00;
+        kd=95.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=9;        
       } 
@@ -574,7 +574,7 @@ int16 turn_out_cal()//舵机控制(位置式PD);float kp,float kd
       {
         float kp,kd;
         kp=24.00;
-        kd=115.00;
+        kd=105.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;\
         Speed_Flag=10;          
       }       
@@ -582,7 +582,7 @@ int16 turn_out_cal()//舵机控制(位置式PD);float kp,float kd
       {
         float kp,kd;
         kp=26.00;
-        kd=125.00;
+        kd=115.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=11;        
       }
