@@ -153,7 +153,7 @@ void zhangaichuli()//路障处理
     if(1==Zhangai_Flag&&1 == c)
     {
      FTM_PWM_Duty(FTM1, FTM_CH0,1010);
-     pit_delay_ms(PIT2,500);//延时1000ms
+     pit_delay_ms(PIT2,480);//延时1000ms
 //     FTM_PWM_Duty(FTM1, FTM_CH0,1082);
 //     pit_delay_ms(PIT2,200);//延时1000ms
      FTM_PWM_Duty(FTM1, FTM_CH0,1160);
