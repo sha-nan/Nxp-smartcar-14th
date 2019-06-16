@@ -6016,7 +6016,7 @@
                 </option>
                 <option>
                     <name>UseFlashLoader</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>CLowLevel</name>
@@ -6036,7 +6036,7 @@
                 </option>
                 <option>
                     <name>FlashLoadersV3</name>
-                    <state>$TOOLKIT_DIR$\config\flashloader\Freescale\FlashK60Dxxx64K.board</state>
+                    <state>$TOOLKIT_DIR$\config\flashloader\NXP\FlashK60Dxxx128K.board</state>
                 </option>
                 <option>
                     <name>OCImagesSuppressCheck1</name>

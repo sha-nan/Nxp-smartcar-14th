@@ -86,115 +86,115 @@ void Turn_PD(float Input)
 extern uint8 Speed_Flag;
 void Speed_Control()
 {
-//    if(1==Speed_Flag)
-//    {
+    if(1==Speed_Flag)
+    {
       Speed_P=0.0;
       Speed_I=0.1;
       Speed_D=0.0;
-      Car_Sudu=210;
+      Car_Sudu=220;
       Turn_KP=6.0;
       Turn_KD=0.8;      
-//    }
-//   else if(2==Speed_Flag)
-//    {
-//      Speed_P=0.0;
-//      Speed_I=0.1;
-//      Speed_D=0.0;
-//      Car_Sudu=200;
-//      Turn_KP=4.0;
-//      Turn_KD=0.8;      
-//    }
-//   else if(3==Speed_Flag)
-//    {
-//      Speed_P=0.0;
-//      Speed_I=0.1;
-//      Speed_D=0.0;
-//      Car_Sudu=200;
-//      Turn_KP=4.0;
-//      Turn_KD=0.8;      
-//    }
-//    else if(4==Speed_Flag)
-//    {
-//      Speed_P=0.0;
-//      Speed_I=0.1;
-//      Speed_D=0.0;
-//      Car_Sudu=200;
-//      Turn_KP=4.0;
-//      Turn_KD=0.8;      
-//    }
-//   else if(5==Speed_Flag)
-//    {
-//      Speed_P=0.0;
-//      Speed_I=0.1;
-//      Speed_D=0.0;
-//      Car_Sudu=200;
-//      Turn_KP=4.0;
-//      Turn_KD=0.8;      
-//    }
-//   else if(6==Speed_Flag)
-//    {
-//      Speed_P=0.0;
-//      Speed_I=0.1;
-//      Speed_D=0.0;
-//      Car_Sudu=170;
-//      Turn_KP=4.0;
-//      Turn_KD=0.8;      
-//    }  
-//   else if(7==Speed_Flag)
-//    {
-//      Speed_P=0.0;
-//      Speed_I=0.1;
-//      Speed_D=0.0;
-//      Car_Sudu=160;
-//      Turn_KP=4.0;
-//      Turn_KD=0.8;      
-//    }  
-//   else if(8==Speed_Flag)
-//    {
-//      Speed_P=0.0;
-//      Speed_I=0.1;
-//      Speed_D=0.0;
-//      Car_Sudu=150;
-//      Turn_KP=4.0;
-//      Turn_KD=0.8;      
-//    }  
-//   else if(9==Speed_Flag)
-//    {
-//      Speed_P=0.0;
-//      Speed_I=0.1;
-//      Speed_D=0.0;
-//      Car_Sudu=140;
-//      Turn_KP=4.0;
-//      Turn_KD=0.8;      
-//    }        
-//    else if(10==Speed_Flag)
-//    {
-//      Speed_P=0.0;
-//      Speed_I=0.1;
-//      Speed_D=0.0;
-//      Car_Sudu=150;
-//      Turn_KP=4.0;
-//      Turn_KD=0.8;      
-//    }
-//   else if(11==Speed_Flag)
-//    {
-//      Speed_P=0.0;
-//      Speed_I=0.1;
-//      Speed_D=0.0;
-//      Car_Sudu=120;
-//      Turn_KP=14.0;
-//      Turn_KD=0.8;      
-//    }
-//   else
-//    {
-//      Speed_P=0.0;
-//      Speed_I=0.1;
-//      Speed_D=0.0;
-//      Car_Sudu=200;
-//      Turn_KP=15.0;
-//      Turn_KD=0.8;
-//    }      
-//    Speed_Flag=0;
+    }
+   else if(2==Speed_Flag)
+    {
+      Speed_P=0.0;
+      Speed_I=0.1;
+      Speed_D=0.0;
+      Car_Sudu=200;
+      Turn_KP=4.0;
+      Turn_KD=0.8;      
+    }
+   else if(3==Speed_Flag)
+    {
+      Speed_P=0.0;
+      Speed_I=0.1;
+      Speed_D=0.0;
+      Car_Sudu=200;
+      Turn_KP=4.0;
+      Turn_KD=0.8;      
+    }
+    else if(4==Speed_Flag)
+    {
+      Speed_P=0.0;
+      Speed_I=0.1;
+      Speed_D=0.0;
+      Car_Sudu=200;
+      Turn_KP=4.0;
+      Turn_KD=0.8;      
+    }
+   else if(5==Speed_Flag)
+    {
+      Speed_P=0.0;
+      Speed_I=0.1;
+      Speed_D=0.0;
+      Car_Sudu=200;
+      Turn_KP=4.0;
+      Turn_KD=0.8;      
+    }
+   else if(6==Speed_Flag)
+    {
+      Speed_P=0.0;
+      Speed_I=0.1;
+      Speed_D=0.0;
+      Car_Sudu=170;
+      Turn_KP=4.0;
+      Turn_KD=0.8;      
+    }  
+   else if(7==Speed_Flag)
+    {
+      Speed_P=0.0;
+      Speed_I=0.1;
+      Speed_D=0.0;
+      Car_Sudu=160;
+      Turn_KP=4.0;
+      Turn_KD=0.8;      
+    }  
+   else if(8==Speed_Flag)
+    {
+      Speed_P=0.0;
+      Speed_I=0.1;
+      Speed_D=0.0;
+      Car_Sudu=150;
+      Turn_KP=4.0;
+      Turn_KD=0.8;      
+    }  
+   else if(9==Speed_Flag)
+    {
+      Speed_P=0.0;
+      Speed_I=0.1;
+      Speed_D=0.0;
+      Car_Sudu=140;
+      Turn_KP=4.0;
+      Turn_KD=0.8;      
+    }        
+    else if(10==Speed_Flag)
+    {
+      Speed_P=0.0;
+      Speed_I=0.1;
+      Speed_D=0.0;
+      Car_Sudu=150;
+      Turn_KP=4.0;
+      Turn_KD=0.8;      
+    }
+   else if(11==Speed_Flag)
+    {
+      Speed_P=0.0;
+      Speed_I=0.1;
+      Speed_D=0.0;
+      Car_Sudu=120;
+      Turn_KP=14.0;
+      Turn_KD=0.8;      
+    }
+   else
+    {
+      Speed_P=0.0;
+      Speed_I=0.1;
+      Speed_D=0.0;
+      Car_Sudu=200;
+      Turn_KP=15.0;
+      Turn_KD=0.8;
+    }      
+    Speed_Flag=0;
     
     Turn_PD(e);   //¼ÆËã×ªÏòÆ«²î
     zuo_zhuanshu = Car_Sudu-Turn_Out;//  7-9

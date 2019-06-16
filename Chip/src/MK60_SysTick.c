@@ -51,7 +51,7 @@ void systick_delay(uint32 time)
                  //| SysTick_CSR_TICKINT_MASK    //使能中断 (注释了表示关闭中断)
                  | SysTick_CSR_CLKSOURCE_MASK    //时钟源选择 ( core clk)
                );
-
+  
     while( !(SYST_CSR & SysTick_CSR_COUNTFLAG_MASK));   //等待时间到
 }
 

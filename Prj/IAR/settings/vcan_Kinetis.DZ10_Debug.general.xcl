@@ -10,6 +10,8 @@
 
 --device_macro="C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.2\arm\config\debugger\NXP\Kxx_Trace.dmac" 
 
+--flash_loader="C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.2\arm\config\flashloader\NXP\FlashK60Dxxx128K.board" 
+
 
 
 

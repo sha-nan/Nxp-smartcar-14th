@@ -31,10 +31,16 @@ void zhangaichuli();//障碍处理函数
  */
 void main()
 {   
-  gpio_init(PTB20,GPO,0);//蜂鸣器
+ // gpio_init(PTA19,GPO,0);//蜂鸣器
   while(1)
   {
-    PTB20_OUT=0;
+    //PTA19_OUT=0;
+   // pit_delay_ms(PIT3,2000);//延时10ms
+        PTA19_OUT=1;
+      // pit_delay_ms(PIT3,1000);//延时10ms
+
+
+      
   }
 }
 #endif
@@ -45,7 +51,7 @@ void main()
 #if 1
 int RightWheel_Count,LeftWheel_Count;
 extern int Real_Speed,Out_Speed,Speed_Error,k;
-
+extern int Speed_Flag;
 void main()
 {
     DisableInterrupts;//禁止全部中断
@@ -68,15 +74,15 @@ void main()
 //         zhangaichuli();
 //       }
 //          
-//           uint8 S1[8],S2[8],S3[8],S4[8];
-//           sprintf((uint8*)S1," S1:%4d S2:%4d",sensor1,sensor2);
-//            LCD_single_P8x16Str(0,0,S1);
-//           sprintf((uint8*)S2," S3:%4d S4:%4d",sensor3,sensor4);
-//            LCD_single_P8x16Str(0,2,S2);
-//           sprintf((uint8*)S3," S5:%4d Vol:%3.1f",sensor5,Vol);
-//            LCD_single_P8x16Str(0,4,S3);
-//           sprintf((uint8*)S4," Error:%4d ",(sensor1-sensor4));
-//            LCD_single_P8x16Str(0,6,S4);      
+           uint8 S1[8],S2[8],S3[8],S4[8];
+           sprintf((uint8*)S1," S1:%4d S2:%4d",sensor1,sensor2);
+            LCD_single_P8x16Str(0,0,S1);
+           sprintf((uint8*)S2," S3:%4d S4:%4d",sensor3,sensor4);
+            LCD_single_P8x16Str(0,2,S2);
+           sprintf((uint8*)S3," S5:%4d Vol:%3.1f",sensor5,Vol);
+            LCD_single_P8x16Str(0,4,S3);
+           sprintf((uint8*)S4," Error:%4d ",(sensor1-sensor4));
+            LCD_single_P8x16Str(0,6,S4);      
 
 //            printf("s1=%4d\n ",sensor1);
 //            printf("terror:%4.4f\n",turn_error);
@@ -96,13 +102,13 @@ void main()
 //           }
 
       
-           uint8 L1[8]={0},L2[8]={0},Re[8]={0};
-           sprintf((char*)L1,"L:%5d",LeftWheel_Count);
-            LCD_single_P8x16Str(0,0,L1);
-           sprintf((char*)L2,"R:%5d",RightWheel_Count);
-            LCD_single_P8x16Str(0,2,L2);
-           sprintf((char*)Re,"Re:%5d",Real_Speed);
-            LCD_single_P8x16Str(0,4,Re);
+//           uint8 L1[8]={0},L2[8]={0},Re[8]={0};
+//           sprintf((char*)L1,"L:%5d",LeftWheel_Count);
+//            LCD_single_P8x16Str(0,0,L1);
+//           sprintf((char*)L2,"R:%5d",RightWheel_Count);
+//            LCD_single_P8x16Str(0,2,L2);
+//           sprintf((char*)Re,"Re:%5d",Real_Speed);
+//            LCD_single_P8x16Str(0,4,Re);
 
 //      if(!Run_Flag)
 //      {
@@ -150,18 +156,138 @@ void main()
 
 void zhangaichuli()//路障处理
 {
-    if(1==Zhangai_Flag&&1 == c)
+    if(1==Zhangai_Flag&&1 == c&&1==Speed_Flag)
     {
      FTM_PWM_Duty(FTM1, FTM_CH0,1010);
      pit_delay_ms(PIT2,480);//延时1000ms
 //     FTM_PWM_Duty(FTM1, FTM_CH0,1082);
 //     pit_delay_ms(PIT2,200);//延时1000ms
      FTM_PWM_Duty(FTM1, FTM_CH0,1160);
-     pit_delay_ms(PIT2,600);//延时1000ms
+     pit_delay_ms(PIT2,650);//延时1000ms
      FTM_PWM_Duty(FTM1, FTM_CH0,1082);
      pit_delay_ms(PIT2,600);//延时1000ms    
      Zhangai_Flag=0;//清除标志位
     }
+    else if(1==Zhangai_Flag&&1 == c&&2==Speed_Flag)
+    {
+     FTM_PWM_Duty(FTM1, FTM_CH0,1010);
+     pit_delay_ms(PIT2,480);//延时1000ms
+//     FTM_PWM_Duty(FTM1, FTM_CH0,1082);
+//     pit_delay_ms(PIT2,200);//延时1000ms
+     FTM_PWM_Duty(FTM1, FTM_CH0,1160);
+     pit_delay_ms(PIT2,650);//延时1000ms
+     FTM_PWM_Duty(FTM1, FTM_CH0,1082);
+     pit_delay_ms(PIT2,600);//延时1000ms    
+     Zhangai_Flag=0;//清除标志位
+    }
+    else if(1==Zhangai_Flag&&1 == c&&2==Speed_Flag)
+    {
+     FTM_PWM_Duty(FTM1, FTM_CH0,1010);
+     pit_delay_ms(PIT2,480);//延时1000ms
+//     FTM_PWM_Duty(FTM1, FTM_CH0,1082);
+//     pit_delay_ms(PIT2,200);//延时1000ms
+     FTM_PWM_Duty(FTM1, FTM_CH0,1160);
+     pit_delay_ms(PIT2,650);//延时1000ms
+     FTM_PWM_Duty(FTM1, FTM_CH0,1082);
+     pit_delay_ms(PIT2,600);//延时1000ms    
+     Zhangai_Flag=0;//清除标志位
+    }
+    else if(1==Zhangai_Flag&&1 == c&&4==Speed_Flag)
+    {
+     FTM_PWM_Duty(FTM1, FTM_CH0,1010);
+     pit_delay_ms(PIT2,480);//延时1000ms
+//     FTM_PWM_Duty(FTM1, FTM_CH0,1082);
+//     pit_delay_ms(PIT2,200);//延时1000ms
+     FTM_PWM_Duty(FTM1, FTM_CH0,1160);
+     pit_delay_ms(PIT2,650);//延时1000ms
+     FTM_PWM_Duty(FTM1, FTM_CH0,1082);
+     pit_delay_ms(PIT2,600);//延时1000ms    
+     Zhangai_Flag=0;//清除标志位
+    }
+    else if(1==Zhangai_Flag&&1 == c&&5==Speed_Flag)
+    {
+     FTM_PWM_Duty(FTM1, FTM_CH0,1010);
+     pit_delay_ms(PIT2,480);//延时1000ms
+//     FTM_PWM_Duty(FTM1, FTM_CH0,1082);
+//     pit_delay_ms(PIT2,200);//延时1000ms
+     FTM_PWM_Duty(FTM1, FTM_CH0,1160);
+     pit_delay_ms(PIT2,650);//延时1000ms
+     FTM_PWM_Duty(FTM1, FTM_CH0,1082);
+     pit_delay_ms(PIT2,600);//延时1000ms    
+     Zhangai_Flag=0;//清除标志位
+    }
+    else if(1==Zhangai_Flag&&1 == c&&6==Speed_Flag)
+    {
+     FTM_PWM_Duty(FTM1, FTM_CH0,1010);
+     pit_delay_ms(PIT2,480);//延时1000ms
+//     FTM_PWM_Duty(FTM1, FTM_CH0,1082);
+//     pit_delay_ms(PIT2,200);//延时1000ms
+     FTM_PWM_Duty(FTM1, FTM_CH0,1160);
+     pit_delay_ms(PIT2,650);//延时1000ms
+     FTM_PWM_Duty(FTM1, FTM_CH0,1082);
+     pit_delay_ms(PIT2,600);//延时1000ms    
+     Zhangai_Flag=0;//清除标志位
+    }
+    else if(1==Zhangai_Flag&&1 == c&&7==Speed_Flag)
+    {
+     FTM_PWM_Duty(FTM1, FTM_CH0,1010);
+     pit_delay_ms(PIT2,480);//延时1000ms
+//     FTM_PWM_Duty(FTM1, FTM_CH0,1082);
+//     pit_delay_ms(PIT2,200);//延时1000ms
+     FTM_PWM_Duty(FTM1, FTM_CH0,1160);
+     pit_delay_ms(PIT2,650);//延时1000ms
+     FTM_PWM_Duty(FTM1, FTM_CH0,1082);
+     pit_delay_ms(PIT2,600);//延时1000ms    
+     Zhangai_Flag=0;//清除标志位
+    }
+    else if(1==Zhangai_Flag&&1 == c&&8==Speed_Flag)
+    {
+     FTM_PWM_Duty(FTM1, FTM_CH0,1010);
+     pit_delay_ms(PIT2,480);//延时1000ms
+//     FTM_PWM_Duty(FTM1, FTM_CH0,1082);
+//     pit_delay_ms(PIT2,200);//延时1000ms
+     FTM_PWM_Duty(FTM1, FTM_CH0,1160);
+     pit_delay_ms(PIT2,650);//延时1000ms
+     FTM_PWM_Duty(FTM1, FTM_CH0,1082);
+     pit_delay_ms(PIT2,600);//延时1000ms    
+     Zhangai_Flag=0;//清除标志位
+    }
+    else if(1==Zhangai_Flag&&1 == c&&9==Speed_Flag)
+    {
+     FTM_PWM_Duty(FTM1, FTM_CH0,1010);
+     pit_delay_ms(PIT2,480);//延时1000ms
+//     FTM_PWM_Duty(FTM1, FTM_CH0,1082);
+//     pit_delay_ms(PIT2,200);//延时1000ms
+     FTM_PWM_Duty(FTM1, FTM_CH0,1160);
+     pit_delay_ms(PIT2,650);//延时1000ms
+     FTM_PWM_Duty(FTM1, FTM_CH0,1082);
+     pit_delay_ms(PIT2,600);//延时1000ms    
+     Zhangai_Flag=0;//清除标志位
+    }   
+    else if(1==Zhangai_Flag&&1 == c&&10==Speed_Flag)
+    {
+     FTM_PWM_Duty(FTM1, FTM_CH0,1010);
+     pit_delay_ms(PIT2,480);//延时1000ms
+//     FTM_PWM_Duty(FTM1, FTM_CH0,1082);
+//     pit_delay_ms(PIT2,200);//延时1000ms
+     FTM_PWM_Duty(FTM1, FTM_CH0,1160);
+     pit_delay_ms(PIT2,650);//延时1000ms
+     FTM_PWM_Duty(FTM1, FTM_CH0,1082);
+     pit_delay_ms(PIT2,600);//延时1000ms    
+     Zhangai_Flag=0;//清除标志位
+    }
+    else if(1==Zhangai_Flag&&1 == c&&11==Speed_Flag)
+    {
+     FTM_PWM_Duty(FTM1, FTM_CH0,1010);
+     pit_delay_ms(PIT2,480);//延时1000ms
+//     FTM_PWM_Duty(FTM1, FTM_CH0,1082);
+//     pit_delay_ms(PIT2,200);//延时1000ms
+     FTM_PWM_Duty(FTM1, FTM_CH0,1160);
+     pit_delay_ms(PIT2,650);//延时1000ms
+     FTM_PWM_Duty(FTM1, FTM_CH0,1082);
+     pit_delay_ms(PIT2,600);//延时1000ms    
+     Zhangai_Flag=0;//清除标志位
+    }    
     else
     {
       FTM_PWM_Duty(FTM1, FTM_CH0, turn_out_cal());           

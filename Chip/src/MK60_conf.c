@@ -34,11 +34,12 @@ const char ASSERT_FAILED_STR[] = "Assertion failed in %s at line %d\n";
 void assert_failed(char *file, int line)
 {
     led_init(LED0);
+    
     while (1)
     {
 
         DEBUG_PRINTF(ASSERT_FAILED_STR, file, line);      //通过串口提示断言失败
-
+       
         //死循环等待程序员检测为何断言失败
         led_turn(LED0);
         DELAY_MS(1000);
