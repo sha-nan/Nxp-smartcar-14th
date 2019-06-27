@@ -139,7 +139,6 @@ void SC_black_Init(void)
   OLED_Init(); //OLED初始化
 
 }
-
  /*************************************************************************
  *  函数名称:  AD_Collect
  *  功能说明： AD采集
@@ -318,8 +317,9 @@ void Run_Control(void)
 { 
 
 //  if(500==k) Run_state = Stop;
-  turn_error=1000.0*(m_sqrt(sensor1+sensor2)-m_sqrt(sensor4+sensor3))/(sensor1+sensor4+sensor2+sensor3);     
-  
+//  turn_error=1000.0*(m_sqrt(sensor1+sensor2)-m_sqrt(sensor4+sensor3))/(sensor1+sensor4+sensor2+sensor3);     
+  turn_error=100.0*((sensor1+sensor2)-(sensor4+sensor3))/(sensor1+sensor4+sensor2+sensor3);     
+
 //    turn_error=1000.0000*(m_sqrt(sensor1+sensor2)-m_sqrt(sensor3+sensor4))/(sensor1+sensor4+sensor2+sensor3);
 //  turn_error=800.0000*(m_sqrt(sensor1)-m_sqrt(sensor4))/(sensor1+sensor4)+ 200.00*(m_sqrt(sensor2)+m_sqrt(sensor3))/(sensor2+sensor3);
   switch(Run_state)
@@ -352,7 +352,8 @@ void Run_Control(void)
      break;		
 	
     default :break;    
-  } 
+  }
+    FTM_PWM_Duty(FTM1, FTM_CH0, turn_out_cal());//转向控制  
 }
 /*************************************************************************
  *  函数名称   Ring_Control  
@@ -494,12 +495,12 @@ void Ring_Control(void)
 int16 turn_out_cal()//舵机控制(位置式PD);float kp,float kd
 {  
 //       turn_error=20*(sensor1-sensor4)/(sensor1+sensor4);//+0.5*(sensor2-sensor3)/(sensor2+sensor3);
-   if(sensor1>900&&sensor4>900&&((sensor2>950&&sensor3<50)||(sensor3>950&&sensor2<50)))
+   if(sensor1>900&&sensor4>900&&((sensor2>900&&sensor3<50)||(sensor3>900&&sensor2<50)))
       {
         turn_error=100.00*(sensor1-sensor4)/(sensor1+sensor4);
         float kp,kd;
-        kp=15.00;
-        kd=25.00;
+        kp=20.00;
+        kd=10.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=1;
       }
@@ -508,32 +509,32 @@ int16 turn_out_cal()//舵机控制(位置式PD);float kp,float kd
       if(abs(turn_error)<=100)
       {
         float kp,kd;
-        kp=7.00;
-        kd=55.00;
+        kp=1.00;
+        kd=0.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=2;        
       }     
       else if(abs(turn_error)<=200)
       {
         float kp,kd;
-        kp=8.00;
-        kd=65.00;
+        kp=1.00;
+        kd=0.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=3;        
       }      
       else if(abs(turn_error)<=300)
       {
         float kp,kd;
-        kp=9.00;
-        kd=75.00;
+        kp=1.00;
+        kd=0.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=4;
       }     
       else if(abs(turn_error)<=400)
       {
         float kp,kd;
-        kp=10.00;
-        kd=85.00;
+        kp=1.00;
+        kd=0.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=5;        
       }
@@ -541,48 +542,48 @@ int16 turn_out_cal()//舵机控制(位置式PD);float kp,float kd
       {
         
         float kp,kd;
-        kp=11.00;
-        kd=95.00;
+        kp=1.00;
+        kd=0.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd; 
         Speed_Flag=6;
       }
       else if(abs(turn_error)<=600)
       {
         float kp,kd;
-        kp=12.00;
-        kd=105.00;
+        kp=1.00;
+        kd=100.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=7;        
       }
       else if(abs(turn_error)<=700)
       {
         float kp,kd;
-        kp=13.00;
-        kd=115.00;
+        kp=1.00;
+        kd=0.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=8;        
       } 
       else if(abs(turn_error)<=800)
       {
         float kp,kd;
-        kp=14.00;
-        kd=125.00;
+        kp=1.00;
+        kd=0.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=9;        
       } 
       else if(abs(turn_error)<=900)
       {
         float kp,kd;
-        kp=15.00;
-        kd=135.00;
-        turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;\
+        kp=1.00;
+        kd=0.00;
+        turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=10;          
       }       
       else 
       {
         float kp,kd;
-        kp=16.00;
-        kd=145.00;
+        kp=1.00;
+        kd=0.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=11;        
       }
