@@ -20,6 +20,7 @@ int16 Speed_PID(int16 Goal,int16 Input)
    
    dSpeed_error = Speed_error -2*last_Speederror+last_lastSpeederror;//Î¢·Ö      
    Out_Speed += (int16)((Speed_error-last_Speederror)*Speed_P+Speed_error_SUM+dSpeed_error*Speed_D);
-   
+   if(Speed_error_SUM> 10) Speed_error_SUM  =  10;
+   if(Speed_error_SUM<-10) Speed_error_SUM  = -10;
    return Out_Speed;
 }

@@ -48,7 +48,7 @@ void wildWolf_init(void)//初始化
        set_vector_handler(PORTB_VECTORn ,PORTB_IRQHandler);//设置PORTB的中断服务函数为PORTB_IRQHandler
        enable_irq(PORTB_IRQn);
        
-       pit_init_ms(PIT0,10);  //10ms定时中断，AD采集
+       pit_init_ms(PIT0,5);  //10ms定时中断，AD采集
        set_vector_handler(PIT0_VECTORn ,PIT0_IRQHandler);//设置 PIT0 的中断复位函数为 PIT0_IRQHandler
        enable_irq(PIT0_IRQn);
        

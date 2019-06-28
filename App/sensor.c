@@ -319,7 +319,6 @@ void Run_Control(void)
 //  if(500==k) Run_state = Stop;
 //  turn_error=1000.0*(m_sqrt(sensor1+sensor2)-m_sqrt(sensor4+sensor3))/(sensor1+sensor4+sensor2+sensor3);     
   turn_error=100.0*((sensor1+sensor2)-(sensor4+sensor3))/(sensor1+sensor4+sensor2+sensor3);     
-
 //    turn_error=1000.0000*(m_sqrt(sensor1+sensor2)-m_sqrt(sensor3+sensor4))/(sensor1+sensor4+sensor2+sensor3);
 //  turn_error=800.0000*(m_sqrt(sensor1)-m_sqrt(sensor4))/(sensor1+sensor4)+ 200.00*(m_sqrt(sensor2)+m_sqrt(sensor3))/(sensor2+sensor3);
   switch(Run_state)
@@ -499,83 +498,83 @@ int16 turn_out_cal()//舵机控制(位置式PD);float kp,float kd
       {
         turn_error=100.00*(sensor1-sensor4)/(sensor1+sensor4);
         float kp,kd;
-        kp=20.00;
-        kd=10.00;
+        kp=30.00;
+        kd=1.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=1;
       }
    else
    {  
-      if(abs(turn_error)<=100)
+      if(abs(turn_error)<=10)
       {
         float kp,kd;
         kp=1.00;
-        kd=0.00;
+        kd=2.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=2;        
       }     
-      else if(abs(turn_error)<=200)
+      else if(abs(turn_error)<=20)
       {
         float kp,kd;
         kp=1.00;
-        kd=0.00;
+        kd=2.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=3;        
       }      
-      else if(abs(turn_error)<=300)
+      else if(abs(turn_error)<=30)
       {
         float kp,kd;
         kp=1.00;
-        kd=0.00;
+        kd=2.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=4;
       }     
-      else if(abs(turn_error)<=400)
+      else if(abs(turn_error)<=40)
       {
         float kp,kd;
         kp=1.00;
-        kd=0.00;
+        kd=4.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=5;        
       }
-      else if(abs(turn_error)<=500)
+      else if(abs(turn_error)<=50)
       {
         
         float kp,kd;
         kp=1.00;
-        kd=0.00;
+        kd=5.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd; 
         Speed_Flag=6;
       }
-      else if(abs(turn_error)<=600)
+      else if(abs(turn_error)<=60)
       {
         float kp,kd;
         kp=1.00;
-        kd=100.00;
+        kd=6.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=7;        
       }
-      else if(abs(turn_error)<=700)
+      else if(abs(turn_error)<=70)
       {
         float kp,kd;
         kp=1.00;
-        kd=0.00;
+        kd=6.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=8;        
       } 
-      else if(abs(turn_error)<=800)
+      else if(abs(turn_error)<=80)
       {
         float kp,kd;
         kp=1.00;
-        kd=0.00;
+        kd=8.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=9;        
       } 
-      else if(abs(turn_error)<=900)
+      else if(abs(turn_error)<=90)
       {
         float kp,kd;
         kp=1.00;
-        kd=0.00;
+        kd=10.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=10;          
       }       
@@ -583,13 +582,13 @@ int16 turn_out_cal()//舵机控制(位置式PD);float kp,float kd
       {
         float kp,kd;
         kp=1.00;
-        kd=0.00;
+        kd=12.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=11;        
       }
    }      
   
-      e = abs(turn_error);//当前偏差        
+      e = turn_error;//当前偏差        
       ec= turn_error-pre_turn_error;//偏差变化率（当前偏差和上次偏差的差值）    
       pre_turn_error=turn_error;     
       if(turn_out<=DirectRight) turn_out = DirectRight;//对舵机打角进行限幅

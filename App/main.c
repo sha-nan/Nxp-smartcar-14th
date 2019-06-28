@@ -81,7 +81,7 @@ void main()
             LCD_single_P8x16Str(0,2,S2);
            sprintf((uint8*)S3," S5:%4d Vol:%3.1f",sensor5,Vol);
             LCD_single_P8x16Str(0,4,S3);
-           sprintf((uint8*)S4," Error:%4d ",(sensor1-sensor4));
+           sprintf((uint8*)S4," Error:%4d ",turn_error);
             LCD_single_P8x16Str(0,6,S4);      
 
 //            printf("s1=%4d\n ",sensor1);
