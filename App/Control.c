@@ -88,11 +88,11 @@ void Speed_Control()
 {
     if(11==Speed_Flag)
     {
-      Car_Sudu=200;
+      Car_Sudu=210;
       Speed_P=40.0;
       Speed_I=4.0;
       Speed_D=0.0;
-      Turn_KP=3.0;
+      Turn_KP=2.0;
       Turn_KD=0.4;   
     }
    else if(10==Speed_Flag)
@@ -100,8 +100,8 @@ void Speed_Control()
       Speed_P=40.0;
       Speed_I=4.0;
       Speed_D=0.0;
-      Car_Sudu=210;
-      Turn_KP=3.0;
+      Car_Sudu=215;
+      Turn_KP=2.0;
       Turn_KD=0.2;
     }    
    else if(9==Speed_Flag)
@@ -109,8 +109,8 @@ void Speed_Control()
       Speed_P=30.0;
       Speed_I=2.0;
       Speed_D=0.0;
-      Car_Sudu=200;
-      Turn_KP=3.0;
+      Car_Sudu=220;
+      Turn_KP=2.0;
       Turn_KD=1.0;
     }
    else if(8==Speed_Flag)
@@ -118,7 +118,7 @@ void Speed_Control()
       Speed_P=20.0;
       Speed_I=1.0;
       Speed_D=0.0;
-      Car_Sudu=210;
+      Car_Sudu=220;
       Turn_KP=2.8;
       Turn_KD=1.0;   
     }
