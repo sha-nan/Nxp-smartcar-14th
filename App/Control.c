@@ -21,9 +21,9 @@ extern int16 Speed_PID(int16 Goal,int16 Input);
 void PIT0_IRQHandler(void)
 {
     PIT_TFLG(PIT0)&=~(PIT_TCTRL_TEN_MASK|PIT_TCTRL_TIE_MASK);//关定时器及中断
-    AD_Date_analyse();
-    Run_Control();
-//    FTM_PWM_Duty(FTM1, FTM_CH0, turn_out_cal());
+    AD_Date_analyse();//电感采集，数据处理
+    StopCar();//停车检测
+    Run_Control();//车辆状态
     PIT_Flag_Clear(PIT0); //清中断标志位
     PIT_TFLG(PIT0)|=(PIT_TCTRL_TEN_MASK|PIT_TCTRL_TIE_MASK);//开定时器及中断，见参考手册976页
 }
@@ -49,16 +49,15 @@ void PIT1_IRQHandler(void)//速度计算中断服务函数
 
 /********************速度控制********************************/
 float Speed_P,Speed_I,Speed_D;
-extern int RightWheel_Count,LeftWheel_Count,k=0,p=0;
+extern int RightWheel_Count,LeftWheel_Count;
 void get_speed()//速度计算
 {
-      k=p++;    
       Left_Speed = LeftWheel_Count;//左电机速度
       Right_Speed = RightWheel_Count;//右电机速度
       Real_Speed = (Left_Speed+Right_Speed)/2; //车身速度 
       
-      if(0!=Real_Speed&&0!=Left_Speed)
-      printf("times:%4d\n Re=%4d\n" ,k,Real_Speed);
+//      if(0!=Real_Speed&&0!=Left_Speed)
+//      printf("times:%4d\n Re=%4d\n" ,k,Real_Speed);
       
       LeftWheel_Count=0;
       RightWheel_Count=0;//清零测速数据，等于是每50ms计数一次
@@ -88,117 +87,117 @@ void Speed_Control()
 {
     if(11==Speed_Flag)
     {
-      Car_Sudu=210;
-      Speed_P=40.0;
-      Speed_I=4.0;
-      Speed_D=0.0;
-      Turn_KP=2.0;
-      Turn_KD=0.4;   
+      Car_Sudu=220;//设置目标速度
+      Speed_P=1.0;//速度Kp
+      Speed_I=0.1;//速度Ki
+      Speed_D=0.0;//速度Kd
+      Turn_KP=1.0;//差速Kp
+      Turn_KD=0.0;//差速Kd  
     }
    else if(10==Speed_Flag)
     {
-      Speed_P=40.0;
-      Speed_I=4.0;
+      Car_Sudu=220;
+      Speed_P=1.0;
+      Speed_I=0.1;
       Speed_D=0.0;
-      Car_Sudu=215;
-      Turn_KP=2.0;
-      Turn_KD=0.2;
+      Turn_KP=1.0;
+      Turn_KD=0.0; 
     }    
    else if(9==Speed_Flag)
     {
-      Speed_P=30.0;
-      Speed_I=2.0;
-      Speed_D=0.0;
       Car_Sudu=220;
-      Turn_KP=2.0;
-      Turn_KD=1.0;
+      Speed_P=1.0;
+      Speed_I=0.1;
+      Speed_D=0.0;
+      Turn_KP=1.0;
+      Turn_KD=0.0; 
     }
    else if(8==Speed_Flag)
     {
-      Speed_P=20.0;
-      Speed_I=1.0;
-      Speed_D=0.0;
       Car_Sudu=220;
-      Turn_KP=2.8;
-      Turn_KD=1.0;   
+      Speed_P=1.0;
+      Speed_I=0.1;
+      Speed_D=0.0;
+      Turn_KP=1.0;
+      Turn_KD=0.0;   
     }
     else if(7==Speed_Flag)
     {
-      Speed_P=20.0;
-      Speed_I=1.0;
-      Speed_D=0.0;
       Car_Sudu=220;
-      Turn_KP=2.6;
-      Turn_KD=1.0;     
+      Speed_P=1.0;
+      Speed_I=0.1;
+      Speed_D=0.0;
+      Turn_KP=1.0;
+      Turn_KD=0.0;      
     }
    else if(6==Speed_Flag)
     {
-      Speed_P=20.0;
-      Speed_I=1.0;
+      Car_Sudu=220;
+      Speed_P=1.0;
+      Speed_I=0.1;
       Speed_D=0.0;
-      Car_Sudu=230;
-      Turn_KP=2.4;
-      Turn_KD=1.0;     
+      Turn_KP=1.0;
+      Turn_KD=0.0;     
     }
    else if(5==Speed_Flag)
     {
-      Speed_P=10.0;
-      Speed_I=1.0;
+      Car_Sudu=220;
+      Speed_P=1.0;
+      Speed_I=0.1;
       Speed_D=0.0;
-      Car_Sudu=240;
-      Turn_KP=2.2;
-      Turn_KD=1.0;    
+      Turn_KP=1.0;
+      Turn_KD=0.0;    
     }  
    else if(4==Speed_Flag)
     {
-      Speed_P=10.0;
-      Speed_I=1.0;
+      Car_Sudu=220;
+      Speed_P=1.0;
+      Speed_I=0.1;
       Speed_D=0.0;
-      Car_Sudu=250;
-      Turn_KP=2.0;
-      Turn_KD=1.0;    
+      Turn_KP=1.0;
+      Turn_KD=0.0;     
     }  
    else if(3==Speed_Flag)
     {
-      Speed_P=10.0;
-      Speed_I=1.0;
+      Car_Sudu=220;
+      Speed_P=1.0;
+      Speed_I=0.1;
       Speed_D=0.0;
-      Car_Sudu=260;
-      Turn_KP=1.8;
-      Turn_KD=1.0;   
+      Turn_KP=1.0;
+      Turn_KD=0.0;    
     }  
    else if(2==Speed_Flag)
     {
-      Speed_P=8.0;
-      Speed_I=0.5;
+      Car_Sudu=220;
+      Speed_P=1.0;
+      Speed_I=0.1;
       Speed_D=0.0;
-      Car_Sudu=270;
       Turn_KP=1.0;
-      Turn_KD=0.8;      
+      Turn_KD=0.0;       
     }        
     else if(1==Speed_Flag)
     {
-      Speed_P=8.0;
-      Speed_I=0.5;
+      Car_Sudu=220;
+      Speed_P=1.0;
+      Speed_I=0.1;
       Speed_D=0.0;
-      Car_Sudu=280;
       Turn_KP=1.0;
-      Turn_KD=0.6;    
+      Turn_KD=0.0;     
     }
    else
     {
-      Speed_P=3.0;
-      Speed_I=0.2;
+      Car_Sudu=220;
+      Speed_P=1.0;
+      Speed_I=0.1;
       Speed_D=0.0;
-      Car_Sudu=230;
       Turn_KP=1.0;
-      Turn_KD=0.4;
+      Turn_KD=0.0; 
     }      
     Speed_Flag=0;
     
     Turn_PD(e);   //计算转向偏差
-    zuo_zhuanshu = Car_Sudu-Turn_Out;//  7-9
-    you_zhuanshu = Car_Sudu+Turn_Out;//  7+9
+    zuo_zhuanshu = Car_Sudu-Turn_Out;//差速
+    you_zhuanshu = Car_Sudu+Turn_Out;
     
     if(!Run_Flag)
       {

@@ -19,12 +19,14 @@ void Ftm_input_init();//初始化FTM输入捕捉模式
 
 void wildWolf_init(void)//初始化
 {
+       DisableInterrupts;//禁止全部中断  
        OLED_Init(); //OLED初始化
+       gpio_init(PTC13,GPI,1);//检测干簧管，停车       
        gpio_init(PTC5,GPO,0);
        gpio_init(PTC18,GPO,0);//LED初始化
        gpio_init(PTA19,GPO,0);//复位LED
        gpio_init(PTB20,GPO,0);//蜂鸣器
-       gpio_init(PTB21,GPI,0);//激光模块
+       gpio_init(PTD6,GPI,0);//激光模块
       /*初始化两个IO口用来读取旋转方向*/
        gpio_init(PTB17,GPI,1);//编码器PhaseA2,方向引脚（左）
        gpio_init(PTB16,GPI,1);//编码器PhaseB2,方向引脚（右）
@@ -58,6 +60,8 @@ void wildWolf_init(void)//初始化
 
        set_vector_handler(FTM2_VECTORn ,FTM2_INPUT_IRQHandler);    //设置FTM2的中断服务函数为 FTM2_INPUT_IRQHandler
        enable_irq (FTM2_IRQn);                                     //使能FTM2中断
+       EnableInterrupts;//使能全部中断
+
 }
 
 void Ftm_input_init()//初始化FTM输入捕捉模式

@@ -13,6 +13,9 @@
 #include "Sensor.h"
 #include "Fuzzy.h"
 #include  "MK60_flash.h"
+/*函数声明*/
+void StopCar();//停车函数声明
+/*变量声明*/
 float  AD_V[5][SENSOR_NUMBER];
 float  AD_value[SENSOR_NUMBER],AD_sum[SENSOR_NUMBER];
 float  max_v[SENSOR_NUMBER],min_v[SENSOR_NUMBER]; //电感标定采集值
@@ -30,6 +33,9 @@ float e=0.00;
 float ec=0.00;//误差和误差变化率
 uint32 turn_out=0;//舵机输出
 uint16 zhidao_flag,wandao_flag,stop_flag;//赛道类型标志
+
+int Stop_Car=0,TC=0,R_stopcar=0;//停车变量
+
 /*圆环变量*/
 int  out;
 int  rightcount=0,leftcount=0;
@@ -314,34 +320,29 @@ uint8 Run_Flag;
 float Dis_Run = 0.0;
 extern int k;
 void Run_Control(void)
-{ 
-
-//  if(500==k) Run_state = Stop;
-//  turn_error=1000.0*(m_sqrt(sensor1+sensor2)-m_sqrt(sensor4+sensor3))/(sensor1+sensor4+sensor2+sensor3);     
+{      
   turn_error=100.0*((sensor1+sensor2)-(sensor4+sensor3))/(sensor1+sensor4+sensor2+sensor3);     
-//    turn_error=1000.0000*(m_sqrt(sensor1+sensor2)-m_sqrt(sensor3+sensor4))/(sensor1+sensor4+sensor2+sensor3);
-//  turn_error=800.0000*(m_sqrt(sensor1)-m_sqrt(sensor4))/(sensor1+sensor4)+ 200.00*(m_sqrt(sensor2)+m_sqrt(sensor3))/(sensor2+sensor3);
   switch(Run_state)
   { 
     case normal_Run://开机正常起步
 //        turn_error=1000.00*(m_sqrt(sensor1)-m_sqrt(sensor4))/(sensor1+sensor4);
         Run_Flag = 1;
         Run_state = Wait_Ring;
-        if(sensor1==1&&sensor2==1&&sensor3==1&&sensor4==1) Run_state = Stop;//冲出赛道保护
+        if((sensor1==1&&sensor2==1&&sensor3==1&&sensor4==1)||Stop_Car==1)  Run_state = Stop;//冲出赛道保护,停车检测
      break;
     
     case Wait_Ring://等待环岛
 //        turn_error=1000.00*(m_sqrt(sensor1)-m_sqrt(sensor4))/(sensor1+sensor4);
         Run_Flag = 1;
         Run_state = Running;
-        if(sensor1==1&&sensor2==1&&sensor3==1&&sensor4==1)  Run_state = Stop;//冲出赛道保护
+        if((sensor1==1&&sensor2==1&&sensor3==1&&sensor4==1)||Stop_Car==1)  Run_state = Stop;//冲出赛道保护,停车检测
      break;
     
     case Running://正常跑
 //        turn_error=1000.00*(m_sqrt(sensor1)-m_sqrt(sensor4))/(sensor1+sensor4);
         Run_Flag = 1;
 //	Ring_Control();//环岛检测
-	if(sensor1==1&&sensor2==1&&sensor3==1&&sensor4==1)  Run_state = Stop;//冲出赛道保护
+        if((sensor1==1&&sensor2==1&&sensor3==1&&sensor4==1)||Stop_Car==1)  Run_state = Stop;//冲出赛道保护,停车检测
      break;
     
     case Stop://停止
@@ -384,14 +385,13 @@ void Ring_Control(void)
   switch(Ring_state)
   {
     case No_Ring://第一步：判断是否出现环
-      turn_error=100.00*(m_sqrt(sensor1+sensor2)-(m_sqrt(sensor4+sensor3)))/(sensor1+sensor4+sensor2+sensor3);
+      turn_error=100.0*((sensor1+sensor2)-(sensor4+sensor3))/(sensor1+sensor4+sensor2+sensor3);     
 //      if(sensor2>70&&50<sensor3&&sensor3<80&&sensor1>80&&sensor4>80)//(右环)
-      if(sensor2>20&&30<sensor3&&sensor3<80&&sensor1>80&&sensor4>80)//(右环)
-      
+      if(sensor2>200&&300<sensor3&&sensor3<800&&sensor1>800&&sensor4>800)//(右环)      
       {
         Ring_state  = Find_Right_Ring;
       }
-      else if(sensor3>70&&50<sensor2&&sensor2<80&&sensor1>80&&sensor4>80)//(左环)
+      else if(sensor3>700&&500<sensor2&&sensor2<800&&sensor1>800&&sensor4>800)//(左环)
       {
         Ring_state  = Find_Left_Ring;
       }
@@ -400,26 +400,26 @@ void Ring_Control(void)
     break;
       
     case Find_Right_Ring://第二步：判断进环点(右环)
-      turn_error=100.00*(m_sqrt(sensor1+sensor2)-(m_sqrt(sensor4+sensor3)))/(sensor1+sensor4+sensor2+sensor3);
+      turn_error=100.0*((sensor1+sensor2)-(sensor4+sensor3))/(sensor1+sensor4+sensor2+sensor3);     
 //      if(sensor2>70&&sensor3>70)
-      if(sensor2>20&&sensor3>40)
+      if(sensor2>200&&sensor3>400)
       {
         Ring_state  = Ready_Right_Ring;
       }
     break;
       
     case Find_Left_Ring://第二步：判断进环点(左环)
-      turn_error=100.00*(m_sqrt(sensor1+sensor2)-(m_sqrt(sensor4+sensor3)))/(sensor1+sensor4+sensor2+sensor3);
-      if(sensor2>70&&sensor3>70)
+      turn_error=100.0*((sensor1+sensor2)-(sensor4+sensor3))/(sensor1+sensor4+sensor2+sensor3);     
+      if(sensor2>700&&sensor3>700)
       {
         Ring_state  = Ready_Left_Ring;
       }
     break;  
     
     case Ready_Right_Ring://第三步：准备进环点 （右环）
-      turn_error=100.00*(m_sqrt(sensor1+sensor2)-(m_sqrt(sensor4+sensor3)))/(sensor1+sensor4+sensor2+sensor3);
+      turn_error=100.0*((sensor1+sensor2)-(sensor4+sensor3))/(sensor1+sensor4+sensor2+sensor3);     
 //      if(30<sensor2&&sensor2<50&&sensor3>80)
-      if(20<sensor2&&sensor2<40&&sensor3>80)
+      if(200<sensor2&&sensor2<400&&sensor3>800)
       {
         Ring_state  = Start_Right_Ring;
         Right_Count=25;
@@ -427,8 +427,8 @@ void Ring_Control(void)
     break;
     
     case Ready_Left_Ring://第三步：准备进环点  （左环）
-      turn_error=100.00*(m_sqrt(sensor1+sensor2)-(m_sqrt(sensor4+sensor3)))/(sensor1+sensor4+sensor2+sensor3);
-      if(30<sensor3&&sensor3<50&&sensor2>80)
+      turn_error=100.0*((sensor1+sensor2)-(sensor4+sensor3))/(sensor1+sensor4+sensor2+sensor3);     
+      if(300<sensor3&&sensor3<500&&sensor2>800)
       {
         Ring_state  = Start_Left_Ring;
         Left_Count=25;
@@ -436,7 +436,7 @@ void Ring_Control(void)
     break; 
     
     case Start_Right_Ring://第四步：开始进环，以固定偏差走一段距离(右环)
-      if(sensor3>80&&sensor2<30)
+      if(sensor3>800&&sensor2<300)
       {
         Right_Count--;
         FTM_PWM_Duty(FTM1, FTM_CH0, 1010);//舵机向右打死,右环前一段死值打角处理
@@ -450,7 +450,7 @@ void Ring_Control(void)
 
     case Start_Left_Ring://第四步：开始进环，以固定偏差走一段距离（左环）
       
-      if(sensor2>80&&sensor3<30)
+      if(sensor2>800&&sensor3<300)
       {
         Left_Count--;
         FTM_PWM_Duty(FTM1, FTM_CH0, 1160);//舵机向左打死,左环前一段死值打角处理
@@ -463,8 +463,8 @@ void Ring_Control(void)
     break;
       
     case In_Ring://第四步：环岛中
-      turn_error=100.00*(m_sqrt(sensor1+sensor2)-(m_sqrt(sensor4+sensor3)))/(sensor1+sensor4+sensor2+sensor3);
-      if((sensor1>80&&sensor2>80)||(sensor3>80&&sensor4>80))
+      turn_error=100.0*((sensor1+sensor2)-(sensor4+sensor3))/(sensor1+sensor4+sensor2+sensor3);     
+      if((sensor1>800&&sensor2>800)||(sensor3>800&&sensor4>800))
       {
         PTA19_OUT=0;
         PTC5_OUT=0;
@@ -473,16 +473,16 @@ void Ring_Control(void)
     break;
     
     case Out_Ring://第五步：出环  两边的电感一定会出现极大值
-      turn_error=100.00*(m_sqrt(sensor1+sensor2)-(m_sqrt(sensor4+sensor3)))/(sensor1+sensor4+sensor2+sensor3);
-      if(sensor1>=80 ||sensor4>=80 ) //出环条件
+      turn_error=100.0*((sensor1+sensor2)-(sensor4+sensor3))/(sensor1+sensor4+sensor2+sensor3);     
+      if(sensor1>=800 ||sensor4>=800 ) //出环条件
       {
         Ring_state  = Real_Out_Ring;
       }
     break;
     
     case Real_Out_Ring://第六步：出环  四个电感值都减小后  回到无环状态
-      turn_error=100.00*(m_sqrt(sensor1+sensor2)-(m_sqrt(sensor4+sensor3)))/(sensor1+sensor4+sensor2+sensor3);
-      if(abs(sensor1-sensor2)<=20 && sensor3<=80&&sensor4<=80 ) //出环条件
+      turn_error=100.0*((sensor1+sensor2)-(sensor4+sensor3))/(sensor1+sensor4+sensor2+sensor3);     
+      if(abs(sensor1-sensor2)<=200 && sensor3<=800&&sensor4<=800 ) //出环条件
       {
         Ring_state  = No_Ring;
       }
@@ -509,7 +509,7 @@ int16 turn_out_cal()//舵机控制(位置式PD);float kp,float kd
       {
         float kp,kd;
         kp=1.00;
-        kd=0.50;
+        kd=3.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=2;        
       }     
@@ -517,7 +517,7 @@ int16 turn_out_cal()//舵机控制(位置式PD);float kp,float kd
       {
         float kp,kd;
         kp=1.00;
-        kd=1.00;
+        kd=3.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=3;        
       }      
@@ -525,7 +525,7 @@ int16 turn_out_cal()//舵机控制(位置式PD);float kp,float kd
       {
         float kp,kd;
         kp=1.00;
-        kd=1.00;
+        kd=3.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=4;
       }     
@@ -542,7 +542,7 @@ int16 turn_out_cal()//舵机控制(位置式PD);float kp,float kd
         
         float kp,kd;
         kp=1.00;
-        kd=5.00;
+        kd=14.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd; 
         Speed_Flag=6;
       }
@@ -550,7 +550,7 @@ int16 turn_out_cal()//舵机控制(位置式PD);float kp,float kd
       {
         float kp,kd;
         kp=1.00;
-        kd=6.00;
+        kd=14.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=7;        
       }
@@ -558,7 +558,7 @@ int16 turn_out_cal()//舵机控制(位置式PD);float kp,float kd
       {
         float kp,kd;
         kp=1.00;
-        kd=6.00;
+        kd=14.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=8;        
       } 
@@ -566,7 +566,7 @@ int16 turn_out_cal()//舵机控制(位置式PD);float kp,float kd
       {
         float kp,kd;
         kp=1.00;
-        kd=8.00;
+        kd=14.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=9;        
       } 
@@ -574,7 +574,7 @@ int16 turn_out_cal()//舵机控制(位置式PD);float kp,float kd
       {
         float kp,kd;
         kp=1.00;
-        kd=10.00;
+        kd=14.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=10;          
       }       
@@ -582,7 +582,7 @@ int16 turn_out_cal()//舵机控制(位置式PD);float kp,float kd
       {
         float kp,kd;
         kp=1.00;
-        kd=12.00;
+        kd=14.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=11;        
       }
@@ -680,4 +680,22 @@ void turn_control()
 //        Motor_output1(2000);
 //        Motor_output2(2000);
 //      }
+}
+
+void StopCar()
+{
+       if(gpio_get(PTC13)==0)//第一次过磁铁
+       {
+          R_stopcar=1;
+       }
+       if(gpio_get(PTC13)==1&&R_stopcar==1)  
+       {
+          R_stopcar=0;
+          TC=1;
+       }
+       if(gpio_get(PTC13)==0&&TC==1)
+       { //第二次过磁铁 
+         Stop_Car=1;
+         BEEP_ON;
+       }  
 }

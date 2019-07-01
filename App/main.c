@@ -54,10 +54,7 @@ extern int Real_Speed,Out_Speed,Speed_Error,k;
 extern int Speed_Flag;
 void main()
 {
-    DisableInterrupts;//禁止全部中断
     wildWolf_init();//初始化
-    EnableInterrupts;//使能全部中断
-
     while(1)
     {
 //      AD_Collect();//电感采集

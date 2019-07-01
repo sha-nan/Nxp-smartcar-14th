@@ -396,8 +396,8 @@ void OLED_Init(void)
   LCD_WrCmd(0x40);//--set start line address 开始行 Set Mapping RAM Display Start Line (0x00~0x3F)
   LCD_WrCmd(0x81);//--set contrast control register 设置与控制寄存器
   LCD_WrCmd(0xcf); // Set SEG Output Current Brightness 设置输出电流亮度
-  LCD_WrCmd(0xa1);//--Set SEG/Column Mapping     0xa0左右反置 0xa1正常
-  LCD_WrCmd(0xc8);//Set COM/Row Scan Direction   0xc0上下反置 0xc8正常
+  LCD_WrCmd(0xa0);//--Set SEG/Column Mapping     0xa0左右反置 0xa1正常
+  LCD_WrCmd(0xc0);//Set COM/Row Scan Direction   0xc0上下反置 0xc8正常
   LCD_WrCmd(0xa6);//--set normal display 设置正常显示
   LCD_WrCmd(0xa8);//--set multiplex ratio(1 to 64) 设置多路复用率
   LCD_WrCmd(0x3f);//--1/64 duty
