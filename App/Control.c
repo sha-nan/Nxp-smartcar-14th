@@ -87,52 +87,52 @@ void Speed_Control()
 {
     if(11==Speed_Flag)
     {
-      Car_Sudu=230;//设置目标速度
+      Car_Sudu=250;//设置目标速度
       Speed_P=1.0;//速度Kp
       Speed_I=0.1;//速度Ki
       Speed_D=0.0;//速度Kd
-      Turn_KP=2.0;//差速Kp
+      Turn_KP=3.0;//差速Kp
       Turn_KD=0.0;//差速Kd  
     }
    else if(10==Speed_Flag)
     {
-      Car_Sudu=230;
+      Car_Sudu=250;
       Speed_P=1.0;
       Speed_I=0.1;
       Speed_D=0.0;
-      Turn_KP=2.0;
+      Turn_KP=3.0;
       Turn_KD=0.0; 
     }    
    else if(9==Speed_Flag)
     {
-      Car_Sudu=230;
+      Car_Sudu=250;
       Speed_P=1.0;
       Speed_I=0.1;
       Speed_D=0.0;
-      Turn_KP=2.0;
+      Turn_KP=3.0;
       Turn_KD=0.0; 
     }
    else if(8==Speed_Flag)
     {
-      Car_Sudu=230;
+      Car_Sudu=250;
       Speed_P=1.0;
       Speed_I=0.1;
       Speed_D=0.0;
-      Turn_KP=2.0;
+      Turn_KP=3.0;
       Turn_KD=0.0;   
     }
     else if(7==Speed_Flag)
     {
-      Car_Sudu=230;
+      Car_Sudu=250;
       Speed_P=1.0;
       Speed_I=0.1;
       Speed_D=0.0;
-      Turn_KP=2.0;
+      Turn_KP=3.0;
       Turn_KD=0.0;      
     }
    else if(6==Speed_Flag)
     {
-      Car_Sudu=230;
+      Car_Sudu=250;
       Speed_P=1.0;
       Speed_I=0.1;
       Speed_D=0.0;
@@ -141,7 +141,7 @@ void Speed_Control()
     }
    else if(5==Speed_Flag)
     {
-      Car_Sudu=230;
+      Car_Sudu=260;
       Speed_P=1.0;
       Speed_I=0.1;
       Speed_D=0.0;
@@ -150,45 +150,45 @@ void Speed_Control()
     }  
    else if(4==Speed_Flag)
     {
-      Car_Sudu=230;
+      Car_Sudu=260;
       Speed_P=1.0;
-      Speed_I=0.1;
+      Speed_I=0.5;
       Speed_D=0.0;
       Turn_KP=2.0;
       Turn_KD=0.0;     
     }  
    else if(3==Speed_Flag)
     {
-      Car_Sudu=230;
+      Car_Sudu=260;
       Speed_P=1.0;
-      Speed_I=0.1;
+      Speed_I=0.5;
       Speed_D=0.0;
-      Turn_KP=2.0;
+      Turn_KP=1.0;
       Turn_KD=0.0;    
     }  
    else if(2==Speed_Flag)
     {
-      Car_Sudu=230;
+      Car_Sudu=260;
       Speed_P=1.0;
-      Speed_I=0.1;
+      Speed_I=0.5;
       Speed_D=0.0;
-      Turn_KP=2.0;
+      Turn_KP=1.0;
       Turn_KD=0.0;       
     }        
     else if(1==Speed_Flag)
     {
-      Car_Sudu=230;
+      Car_Sudu=260;
       Speed_P=1.0;
-      Speed_I=0.1;
+      Speed_I=0.5;
       Speed_D=0.0;
-      Turn_KP=2.0;
+      Turn_KP=1.0;
       Turn_KD=0.0;     
     }
    else
     {
-      Car_Sudu=230;
+      Car_Sudu=260;
       Speed_P=1.0;
-      Speed_I=0.1;
+      Speed_I=0.5;
       Speed_D=0.0;
       Turn_KP=2.0;
       Turn_KD=0.0; 
