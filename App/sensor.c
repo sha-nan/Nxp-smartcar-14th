@@ -498,7 +498,7 @@ int16 turn_out_cal()//舵机控制(位置式PD);float kp,float kd
       {
         turn_error=100.00*(sensor1-sensor4)/(sensor1+sensor4);
         float kp,kd;
-        kp=30.00;
+        kp=40.00;
         kd=1.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=1;
@@ -509,7 +509,7 @@ int16 turn_out_cal()//舵机控制(位置式PD);float kp,float kd
       {
         float kp,kd;
         kp=1.00;
-        kd=3.00;
+        kd=1.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=2;        
       }     
@@ -517,7 +517,7 @@ int16 turn_out_cal()//舵机控制(位置式PD);float kp,float kd
       {
         float kp,kd;
         kp=1.00;
-        kd=3.00;
+        kd=1.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=3;        
       }      
@@ -525,7 +525,7 @@ int16 turn_out_cal()//舵机控制(位置式PD);float kp,float kd
       {
         float kp,kd;
         kp=1.00;
-        kd=3.00;
+        kd=1.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=4;
       }     
@@ -533,7 +533,7 @@ int16 turn_out_cal()//舵机控制(位置式PD);float kp,float kd
       {
         float kp,kd;
         kp=1.00;
-        kd=4.00;
+        kd=1.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=5;        
       }
@@ -696,6 +696,6 @@ void StopCar()
        if(gpio_get(PTC13)==0&&TC==1)
        { //第二次过磁铁 
          Stop_Car=1;
-         BEEP_ON;
+         BEEP_ON;//开启蜂鸣器
        }  
 }
