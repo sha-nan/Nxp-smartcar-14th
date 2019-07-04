@@ -7445,11 +7445,11 @@
                 </option>
                 <option>
                     <name>MemOverride</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>MemFile</name>
-                    <state>$TOOLKIT_DIR$\CONFIG\debugger\Freescale\iok60xxxx.ddf</state>
+                    <state>$TOOLKIT_DIR$\CONFIG\debugger\NXP\MK60DN512Zxxx10.ddf</state>
                 </option>
                 <option>
                     <name>RunToEnable</name>
@@ -7493,7 +7493,7 @@
                 </option>
                 <option>
                     <name>OCLastSavedByProductVersion</name>
-                    <state>6.30.1.53141</state>
+                    <state>8.32.4.20866</state>
                 </option>
                 <option>
                     <name>UseFlashLoader</name>
@@ -7585,7 +7585,7 @@
                 </option>
                 <option>
                     <name>OCMulticoreNrOfCores</name>
-                    <state></state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>OCMulticoreMaster</name>

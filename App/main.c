@@ -14,7 +14,6 @@ extern float turn_error,pre_turn_error;
 extern uint8 Run_Flag;
 uint8 error_flag=1;
 extern int16 turn_out;//舵机输出
-int c=0;
 /*函数声明*/
 
 extern void PORTB_IRQHandler();//PORTB中断服务函数
@@ -57,11 +56,6 @@ void main()
     wildWolf_init();//初始化
     while(1)
     {
-//      AD_Collect();//电感采集
-//      AD_Date_analyse();
-//      Run_Control();
-//      FTM_PWM_Duty(FTM1, FTM_CH0, turn_out_cal());
-
 //      if(0==Zhangai_Flag)
 //        {
 //           FTM_PWM_Duty(FTM1, FTM_CH0, turn_out_cal());           
@@ -153,7 +147,7 @@ void main()
 
 void zhangaichuli()//路障处理
 {
-    if(1==Zhangai_Flag&&1 == c&&1==Speed_Flag)
+    if(1==Zhangai_Flag&&1==Speed_Flag)
     {
      FTM_PWM_Duty(FTM1, FTM_CH0,1010);
      pit_delay_ms(PIT2,480);//延时1000ms
@@ -165,7 +159,7 @@ void zhangaichuli()//路障处理
      pit_delay_ms(PIT2,600);//延时1000ms    
      Zhangai_Flag=0;//清除标志位
     }
-    else if(1==Zhangai_Flag&&1 == c&&2==Speed_Flag)
+    else if(1==Zhangai_Flag&&2==Speed_Flag)
     {
      FTM_PWM_Duty(FTM1, FTM_CH0,1010);
      pit_delay_ms(PIT2,480);//延时1000ms
@@ -177,7 +171,7 @@ void zhangaichuli()//路障处理
      pit_delay_ms(PIT2,600);//延时1000ms    
      Zhangai_Flag=0;//清除标志位
     }
-    else if(1==Zhangai_Flag&&1 == c&&2==Speed_Flag)
+    else if(1==Zhangai_Flag&&2==Speed_Flag)
     {
      FTM_PWM_Duty(FTM1, FTM_CH0,1010);
      pit_delay_ms(PIT2,480);//延时1000ms
@@ -189,7 +183,7 @@ void zhangaichuli()//路障处理
      pit_delay_ms(PIT2,600);//延时1000ms    
      Zhangai_Flag=0;//清除标志位
     }
-    else if(1==Zhangai_Flag&&1 == c&&4==Speed_Flag)
+    else if(1==Zhangai_Flag&&4==Speed_Flag)
     {
      FTM_PWM_Duty(FTM1, FTM_CH0,1010);
      pit_delay_ms(PIT2,480);//延时1000ms
@@ -201,7 +195,7 @@ void zhangaichuli()//路障处理
      pit_delay_ms(PIT2,600);//延时1000ms    
      Zhangai_Flag=0;//清除标志位
     }
-    else if(1==Zhangai_Flag&&1 == c&&5==Speed_Flag)
+    else if(1==Zhangai_Flag&&5==Speed_Flag)
     {
      FTM_PWM_Duty(FTM1, FTM_CH0,1010);
      pit_delay_ms(PIT2,480);//延时1000ms
@@ -213,7 +207,7 @@ void zhangaichuli()//路障处理
      pit_delay_ms(PIT2,600);//延时1000ms    
      Zhangai_Flag=0;//清除标志位
     }
-    else if(1==Zhangai_Flag&&1 == c&&6==Speed_Flag)
+    else if(1==Zhangai_Flag&&6==Speed_Flag)
     {
      FTM_PWM_Duty(FTM1, FTM_CH0,1010);
      pit_delay_ms(PIT2,480);//延时1000ms
@@ -225,7 +219,7 @@ void zhangaichuli()//路障处理
      pit_delay_ms(PIT2,600);//延时1000ms    
      Zhangai_Flag=0;//清除标志位
     }
-    else if(1==Zhangai_Flag&&1 == c&&7==Speed_Flag)
+    else if(1==Zhangai_Flag&&7==Speed_Flag)
     {
      FTM_PWM_Duty(FTM1, FTM_CH0,1010);
      pit_delay_ms(PIT2,480);//延时1000ms
@@ -237,7 +231,7 @@ void zhangaichuli()//路障处理
      pit_delay_ms(PIT2,600);//延时1000ms    
      Zhangai_Flag=0;//清除标志位
     }
-    else if(1==Zhangai_Flag&&1 == c&&8==Speed_Flag)
+    else if(1==Zhangai_Flag&&8==Speed_Flag)
     {
      FTM_PWM_Duty(FTM1, FTM_CH0,1010);
      pit_delay_ms(PIT2,480);//延时1000ms
@@ -249,7 +243,7 @@ void zhangaichuli()//路障处理
      pit_delay_ms(PIT2,600);//延时1000ms    
      Zhangai_Flag=0;//清除标志位
     }
-    else if(1==Zhangai_Flag&&1 == c&&9==Speed_Flag)
+    else if(1==Zhangai_Flag&&9==Speed_Flag)
     {
      FTM_PWM_Duty(FTM1, FTM_CH0,1010);
      pit_delay_ms(PIT2,480);//延时1000ms
@@ -261,7 +255,7 @@ void zhangaichuli()//路障处理
      pit_delay_ms(PIT2,600);//延时1000ms    
      Zhangai_Flag=0;//清除标志位
     }   
-    else if(1==Zhangai_Flag&&1 == c&&10==Speed_Flag)
+    else if(1==Zhangai_Flag&&10==Speed_Flag)
     {
      FTM_PWM_Duty(FTM1, FTM_CH0,1010);
      pit_delay_ms(PIT2,480);//延时1000ms
@@ -273,7 +267,7 @@ void zhangaichuli()//路障处理
      pit_delay_ms(PIT2,600);//延时1000ms    
      Zhangai_Flag=0;//清除标志位
     }
-    else if(1==Zhangai_Flag&&1 == c&&11==Speed_Flag)
+    else if(1==Zhangai_Flag&&11==Speed_Flag)
     {
      FTM_PWM_Duty(FTM1, FTM_CH0,1010);
      pit_delay_ms(PIT2,480);//延时1000ms
@@ -305,7 +299,6 @@ void PORTB_IRQHandler()
     if(PORTB_ISFR & (1 << n))
     {
        /*     用户任务       */
-      c=c++;
       Zhangai_Flag=1;
       zhangaichuli();
     }
