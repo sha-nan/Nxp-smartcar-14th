@@ -8,6 +8,7 @@
 int Zhangai_Flag;//全局变量，障碍检测标志
 int RightWheel_Count,LeftWheel_Count;
 extern uint8 Vol;//电池电压
+extern uint16 s1,s2,s3,s4;
 extern uint16 sensor1,sensor2,sensor3,sensor4;
 extern uint16 sensor5;//,sensor6,sensor7,sensor8;//中间电感
 extern float turn_error,pre_turn_error;
@@ -30,17 +31,7 @@ void zhangaichuli();//障碍处理函数
  */
 void main()
 {   
- // gpio_init(PTA19,GPO,0);//蜂鸣器
-  while(1)
-  {
-    //PTA19_OUT=0;
-   // pit_delay_ms(PIT3,2000);//延时10ms
-        PTA19_OUT=1;
-      // pit_delay_ms(PIT3,1000);//延时10ms
 
-
-      
-  }
 }
 #endif
 
@@ -75,6 +66,10 @@ void main()
            sprintf((uint8*)S4," Error:%4d ",turn_error);
             LCD_single_P8x16Str(0,6,S4);      
 
+        printf("s1=%4d\n ",s1);
+        printf("s2=%4d\n ",s2);
+        printf("s3=%4d\n ",s3);
+        printf("s4=%4d\n ",s4);            
 //            printf("s1=%4d\n ",sensor1);
 //            printf("terror:%4.4f\n",turn_error);
 

@@ -21,13 +21,13 @@ void Motor_init(void)
 void Motor_output1(int16 duty)//左轮
 {
   //首先对duty进行限值  精度为10000  限值为10000
-  if(duty>=5000)
+  if(duty>=4500)
   {
-    duty=5000;
+    duty=4500;
   }
-  else  if(duty<=-5000)
+  else  if(duty<=-4500)
   {
-    duty=-5000;
+    duty=-4500;
   }
   //然后给电机输出
   if(duty>=0)
@@ -47,13 +47,13 @@ void Motor_output1(int16 duty)//左轮
 void Motor_output2(int16 duty)//右轮
 {
   //首先对duty进行限值  精度为10000  限值为10000
-  if(duty>=3000)
+  if(duty>=4500)
   {
-    duty=3000;
+    duty=4500;
   }
-  else  if(duty<=-3000)
+  else  if(duty<=-4500)
   {
-    duty=-3000;
+    duty=-4500;
   }
   //然后给电机输出
   if(duty>=0)

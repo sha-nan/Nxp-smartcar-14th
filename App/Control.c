@@ -22,7 +22,7 @@ void PIT0_IRQHandler(void)
 {
     PIT_TFLG(PIT0)&=~(PIT_TCTRL_TEN_MASK|PIT_TCTRL_TIE_MASK);//关定时器及中断
     AD_Date_analyse();//电感采集，数据处理
-    StopCar();//停车检测
+    StopCar();//停车检测   
     Run_Control();//车辆状态
     PIT_Flag_Clear(PIT0); //清中断标志位
     PIT_TFLG(PIT0)|=(PIT_TCTRL_TEN_MASK|PIT_TCTRL_TIE_MASK);//开定时器及中断，见参考手册976页
@@ -87,108 +87,108 @@ void Speed_Control()
 {
     if(11==Speed_Flag)
     {
-      Car_Sudu=280;//设置目标速度
+      Car_Sudu=250;//设置目标速度
       Speed_P=1.0;//速度Kp
-      Speed_I=0.1;//速度Ki
+      Speed_I=0.2;//速度Ki
       Speed_D=0.0;//速度Kd
       Turn_KP=1.0;//差速Kp
       Turn_KD=0.0;//差速Kd  
     }
    else if(10==Speed_Flag)
     {
-      Car_Sudu=280;
+      Car_Sudu=250;
       Speed_P=1.0;
-      Speed_I=0.1;
+      Speed_I=0.2;
       Speed_D=0.0;
       Turn_KP=1.0;
       Turn_KD=0.0; 
     }    
    else if(9==Speed_Flag)
     {
-      Car_Sudu=280;
+      Car_Sudu=250;
       Speed_P=1.0;
-      Speed_I=0.1;
+      Speed_I=0.2;
       Speed_D=0.0;
       Turn_KP=1.0;
       Turn_KD=0.0; 
     }
    else if(8==Speed_Flag)
     {
-      Car_Sudu=280;
+      Car_Sudu=250;
       Speed_P=1.0;
-      Speed_I=0.1;
+      Speed_I=0.2;
       Speed_D=0.0;
       Turn_KP=1.0;
       Turn_KD=0.0;   
     }
     else if(7==Speed_Flag)
     {
-      Car_Sudu=280;
+      Car_Sudu=250;
       Speed_P=1.0;
-      Speed_I=0.1;
+      Speed_I=0.2;
       Speed_D=0.0;
       Turn_KP=1.0;
       Turn_KD=0.0;      
     }
    else if(6==Speed_Flag)
     {
-      Car_Sudu=280;
+      Car_Sudu=250;
       Speed_P=1.0;
-      Speed_I=0.1;
+      Speed_I=0.2;
       Speed_D=0.0;
       Turn_KP=1.0;
       Turn_KD=0.0;     
     }
    else if(5==Speed_Flag)
     {
-      Car_Sudu=280;
+      Car_Sudu=250;
       Speed_P=1.0;
-      Speed_I=0.1;
+      Speed_I=0.2;
       Speed_D=0.0;
       Turn_KP=1.0;
       Turn_KD=0.0;    
     }  
    else if(4==Speed_Flag)
     {
-      Car_Sudu=280;
+      Car_Sudu=250;
       Speed_P=1.0;
-      Speed_I=0.1;
+      Speed_I=0.2;
       Speed_D=0.0;
       Turn_KP=1.0;
       Turn_KD=0.0;     
     }  
    else if(3==Speed_Flag)
     {
-      Car_Sudu=280;
+      Car_Sudu=250;
       Speed_P=1.0;
-      Speed_I=0.1;
+      Speed_I=0.2;
       Speed_D=0.0;
       Turn_KP=1.0;
       Turn_KD=0.0;    
     }  
    else if(2==Speed_Flag)
     {
-      Car_Sudu=280;
+      Car_Sudu=250;
       Speed_P=1.0;
-      Speed_I=0.1;
+      Speed_I=0.2;
       Speed_D=0.0;
       Turn_KP=1.0;
       Turn_KD=0.0;       
     }        
     else if(1==Speed_Flag)
     {
-      Car_Sudu=280;
+      Car_Sudu=250;
       Speed_P=1.0;
-      Speed_I=0.1;
+      Speed_I=0.2;
       Speed_D=0.0;
       Turn_KP=1.0;
       Turn_KD=0.0;     
     }
    else
     {
-      Car_Sudu=280;
+      Car_Sudu=250;
       Speed_P=1.0;
-      Speed_I=0.1;
+      Speed_I=0.2;
       Speed_D=0.0;
       Turn_KP=1.0;
       Turn_KD=0.0; 
@@ -203,6 +203,7 @@ void Speed_Control()
       {
         Motor_output1(0);
         Motor_output2(0);
+        BEEP_OFF;//蜂鸣器        
       }
     else
       {
