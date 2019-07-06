@@ -384,7 +384,7 @@ float Dis_Ring=0;
 uint8  Ring_Flag = 0;
 uint8 Speed_Flag = 0;
 uint8 Ring_state;
-
+uint8 Go_Ring_Flag=0,Out_Ring_Flag=0;
 void Ring_Control(void)
 {
   switch(Ring_state)
@@ -392,7 +392,7 @@ void Ring_Control(void)
     case No_Ring://第一步：判断是否出现环
       turn_error=100.0*((sensor1+sensor2)-(sensor4+sensor3))/(sensor1+sensor4+sensor2+sensor3);     
 //      if(sensor2>70&&50<sensor3&&sensor3<80&&sensor1>80&&sensor4>80)//(右环)
-      if(sensor2>20&&50<sensor3&&sensor3<70&&sensor1>80&&sensor4>80)//(右环)      
+      if(sensor2>20&&30<sensor3&&sensor3<80&&sensor1>80&&sensor4>80)//(右环)      
       {
         Ring_state  = Find_Right_Ring;
       }
@@ -427,6 +427,7 @@ void Ring_Control(void)
 //      if(30<sensor2&&sensor2<50&&sensor3>80)
       if(20<sensor2&&sensor2<40&&sensor3>80)
       {
+        Go_Ring_Flag=1;//进环减速标志
         Ring_state  = Start_Right_Ring;
       }
     break;
@@ -435,19 +436,39 @@ void Ring_Control(void)
       turn_error=100.0*((sensor1+sensor2)-(sensor4+sensor3))/(sensor1+sensor4+sensor2+sensor3);     
       if(20<sensor3&&sensor3<40&&sensor2>80)
       {
+        Go_Ring_Flag=1;//进环减速标志
         Ring_state  = Start_Left_Ring;
       }
     break; 
     
     case Start_Right_Ring://第四步：开始进环，以固定偏差走一段距离(右环)
       turn_error=100.0*((sensor1+sensor2)-(sensor4+sensor3))/(sensor1+sensor4+sensor2+sensor3);     
-      if(sensor3>87&&sensor2<32)
+      if(sensor3>84&&sensor2<32)
       {
-        FTM_PWM_Duty(FTM1, FTM_CH0, 1010);//舵机向右打死,右环前一段死值打角处理
-        pit_delay_ms(PIT3,340);//延时                
-        if(sensor1<80&&sensor2<10&&sensor3>80&&sensor4>80)
+        if(1==BOMA)//速度260
         {
-           BEEP_ON;//蜂鸣器          
+            FTM_PWM_Duty(FTM1, FTM_CH0, 1010);//舵机向右打死,右环前一段死值打角处理
+            pit_delay_ms(PIT3,340);//延时                
+        }
+        else if(2==BOMA)//速度270
+        {
+            FTM_PWM_Duty(FTM1, FTM_CH0, 1010);//舵机向右打死,右环前一段死值打角处理
+            pit_delay_ms(PIT3,340);//延时                
+        } 
+        else if(4==BOMA)//速度280
+        {
+            FTM_PWM_Duty(FTM1, FTM_CH0, 1010);//舵机向右打死,右环前一段死值打角处理
+            pit_delay_ms(PIT3,340);//延时                
+        }
+        else//速度250（默认）
+        {
+            FTM_PWM_Duty(FTM1, FTM_CH0, 1010);//舵机向右打死,右环前一段死值打角处理
+            pit_delay_ms(PIT3,335);//延时                
+        }
+        if(sensor1<60&&sensor2<10&&sensor3>80&&sensor4>80)
+        {
+           BEEP_ON;//蜂鸣器
+           Out_Ring_Flag=1;//出环减速标志
            Ring_state = In_Ring;
         }
       }
@@ -459,10 +480,11 @@ void Ring_Control(void)
       {
 //        BEEP_ON;//蜂鸣器
         FTM_PWM_Duty(FTM1, FTM_CH0, 1160);//舵机向左打死,左环前一段死值打角处理
-        pit_delay_ms(PIT3,340);//延时                
+        pit_delay_ms(PIT3,340);//延时
+        
         if(sensor1>80&&sensor2>80&&sensor3<10&&sensor4<80)
         {
-          BEEP_ON;//蜂鸣器
+//          BEEP_ON;//蜂鸣器
           Ring_state = In_Ring;
         }
       }
@@ -484,7 +506,7 @@ void Ring_Control(void)
     
     case Out_Ring://第六步：出环  两边的电感一定会出现极大值
       turn_error=100.0*((sensor1+sensor2)-(sensor4+sensor3))/(sensor1+sensor4+sensor2+sensor3);     
-      if(sensor1>80&&sensor4>80)
+      if(sensor1>20&&sensor4>80||sensor2>80||sensor2>0&&sensor3>80)
       {
 //        BEEP_ON;//蜂鸣器        
         s1=sensor1;
