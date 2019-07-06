@@ -477,7 +477,7 @@ void Speed_Control()
     {
       Car_Sudu=250;
       Speed_P=1.0;
-      Speed_I=0.2;
+      Speed_I=0.3;
       Speed_D=0.0;
       Turn_KP=1.0;
       Turn_KD=0.0;     
@@ -486,7 +486,7 @@ void Speed_Control()
     {
       Car_Sudu=250;
       Speed_P=1.0;
-      Speed_I=0.2;
+      Speed_I=0.3;
       Speed_D=0.0;
       Turn_KP=1.0;
       Turn_KD=0.0;    
@@ -495,7 +495,7 @@ void Speed_Control()
     {
       Car_Sudu=250;
       Speed_P=1.0;
-      Speed_I=0.2;
+      Speed_I=0.3;
       Speed_D=0.0;
       Turn_KP=1.0;
       Turn_KD=0.0;     
@@ -504,7 +504,7 @@ void Speed_Control()
     {
       Car_Sudu=250;
       Speed_P=1.0;
-      Speed_I=0.2;
+      Speed_I=0.3;
       Speed_D=0.0;
       Turn_KP=1.0;
       Turn_KD=0.0;    
@@ -513,7 +513,7 @@ void Speed_Control()
     {
       Car_Sudu=250;
       Speed_P=1.0;
-      Speed_I=0.2;
+      Speed_I=0.3;
       Speed_D=0.0;
       Turn_KP=1.0;
       Turn_KD=0.0;       
@@ -522,7 +522,7 @@ void Speed_Control()
     {
       Car_Sudu=250;
       Speed_P=1.0;
-      Speed_I=0.2;
+      Speed_I=0.3;
       Speed_D=0.0;
       Turn_KP=1.0;
       Turn_KD=0.0;     
@@ -531,7 +531,7 @@ void Speed_Control()
     {
       Car_Sudu=250;
       Speed_P=1.0;
-      Speed_I=0.2;
+      Speed_I=0.3;
       Speed_D=0.0;
       Turn_KP=1.0;
       Turn_KD=0.0; 

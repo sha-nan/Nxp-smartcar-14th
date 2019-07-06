@@ -346,7 +346,7 @@ void Run_Control(void)
     case Running://正常跑
 //        turn_error=1000.00*(m_sqrt(sensor1)-m_sqrt(sensor4))/(sensor1+sensor4);
         Run_Flag = 1;
-//	    Ring_Control();//环岛检测
+	    Ring_Control();//环岛检测
         if((sensor1==1&&sensor2==1&&sensor3==1&&sensor4==1||Stop_Car==1))  Run_state = Stop;//冲出赛道保护,停车检测
      break;
     
@@ -399,7 +399,6 @@ void Ring_Control(void)
       else if(sensor3>20&&50<sensor2&&sensor2<70&&sensor1>80&&sensor4>80)//(左环)
 //      else if(sensor3>20&&30<sensor2&&sensor2<80&&sensor1>80&&sensor4>80)//(左环)
       {
-        
         Ring_state  = Find_Left_Ring;
       }
       else
@@ -412,7 +411,6 @@ void Ring_Control(void)
       if(sensor2>20&&sensor3>40)
       {
         Ring_state  = Ready_Right_Ring;
-        Right_Count=0;        
       }
     break;
       
@@ -445,9 +443,6 @@ void Ring_Control(void)
       turn_error=100.0*((sensor1+sensor2)-(sensor4+sensor3))/(sensor1+sensor4+sensor2+sensor3);     
       if(sensor3>87&&sensor2<32)
       {
-//       Right_Count++;
-//       while(Right_Count<20)
-//        {
         FTM_PWM_Duty(FTM1, FTM_CH0, 1010);//舵机向右打死,右环前一段死值打角处理
         pit_delay_ms(PIT3,340);//延时                
         if(sensor1<80&&sensor2<10&&sensor3>80&&sensor4>80)
@@ -825,7 +820,7 @@ int16 turn_out_cal()//舵机控制(位置式PD);float kp,float kd
         
         float kp,kd;
         kp=1.0;
-        kd=23.00;
+        kd=21.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd; 
         Speed_Flag=6;
       }
@@ -833,7 +828,7 @@ int16 turn_out_cal()//舵机控制(位置式PD);float kp,float kd
       {
         float kp,kd;
         kp=1.0;
-        kd=23.00;
+        kd=22.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=7;        
       }
@@ -849,7 +844,7 @@ int16 turn_out_cal()//舵机控制(位置式PD);float kp,float kd
       {
         float kp,kd;
         kp=1.00;
-        kd=23.00;
+        kd=24.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=9;        
       } 
@@ -857,7 +852,7 @@ int16 turn_out_cal()//舵机控制(位置式PD);float kp,float kd
       {
         float kp,kd;
         kp=1.0;
-        kd=23.00;
+        kd=25.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=10;          
       }       
@@ -865,7 +860,7 @@ int16 turn_out_cal()//舵机控制(位置式PD);float kp,float kd
       {
         float kp,kd;
         kp=1.00;
-        kd=23.00;
+        kd=26.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=11;        
       }
