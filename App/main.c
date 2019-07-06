@@ -47,6 +47,7 @@ void main()
     wildWolf_init();//≥ı ºªØ
     while(1)
     {
+    
 //      if(0==Zhangai_Flag)
 //        {
 //           FTM_PWM_Duty(FTM1, FTM_CH0, turn_out_cal());           

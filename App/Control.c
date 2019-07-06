@@ -82,9 +82,352 @@ void Turn_PD(float Input)
   Turn_Out = error + (error-lasterror)*Turn_KD; 
 }
 
+extern int Speed_Choose;
 extern uint8 Speed_Flag;
 void Speed_Control()
 {
+  /********************速度控制，一档速度250********************************/
+  if(1==Speed_Choose)
+  {
+    if(11==Speed_Flag)
+    {
+      Car_Sudu=260;//设置目标速度
+      Speed_P=1.0;//速度Kp
+      Speed_I=0.2;//速度Ki
+      Speed_D=0.0;//速度Kd
+      Turn_KP=1.0;//差速Kp
+      Turn_KD=0.0;//差速Kd  
+    }
+   else if(10==Speed_Flag)
+    {
+      Car_Sudu=260;
+      Speed_P=1.0;
+      Speed_I=0.2;
+      Speed_D=0.0;
+      Turn_KP=1.0;
+      Turn_KD=0.0; 
+    }    
+   else if(9==Speed_Flag)
+    {
+      Car_Sudu=260;
+      Speed_P=1.0;
+      Speed_I=0.2;
+      Speed_D=0.0;
+      Turn_KP=1.0;
+      Turn_KD=0.0; 
+    }
+   else if(8==Speed_Flag)
+    {
+      Car_Sudu=260;
+      Speed_P=1.0;
+      Speed_I=0.2;
+      Speed_D=0.0;
+      Turn_KP=1.0;
+      Turn_KD=0.0;   
+    }
+    else if(7==Speed_Flag)
+    {
+      Car_Sudu=260;
+      Speed_P=1.0;
+      Speed_I=0.2;
+      Speed_D=0.0;
+      Turn_KP=1.0;
+      Turn_KD=0.0;      
+    }
+   else if(6==Speed_Flag)
+    {
+      Car_Sudu=260;
+      Speed_P=1.0;
+      Speed_I=0.2;
+      Speed_D=0.0;
+      Turn_KP=1.0;
+      Turn_KD=0.0;     
+    }
+   else if(5==Speed_Flag)
+    {
+      Car_Sudu=260;
+      Speed_P=1.0;
+      Speed_I=0.2;
+      Speed_D=0.0;
+      Turn_KP=1.0;
+      Turn_KD=0.0;    
+    }  
+   else if(4==Speed_Flag)
+    {
+      Car_Sudu=260;
+      Speed_P=1.0;
+      Speed_I=0.2;
+      Speed_D=0.0;
+      Turn_KP=1.0;
+      Turn_KD=0.0;     
+    }  
+   else if(3==Speed_Flag)
+    {
+      Car_Sudu=260;
+      Speed_P=1.0;
+      Speed_I=0.2;
+      Speed_D=0.0;
+      Turn_KP=1.0;
+      Turn_KD=0.0;    
+    }  
+   else if(2==Speed_Flag)
+    {
+      Car_Sudu=260;
+      Speed_P=1.0;
+      Speed_I=0.2;
+      Speed_D=0.0;
+      Turn_KP=1.0;
+      Turn_KD=0.0;       
+    }        
+    else if(1==Speed_Flag)
+    {
+      Car_Sudu=260;
+      Speed_P=1.0;
+      Speed_I=0.2;
+      Speed_D=0.0;
+      Turn_KP=1.0;
+      Turn_KD=0.0;     
+    }
+   else
+    {
+      Car_Sudu=260;
+      Speed_P=1.0;
+      Speed_I=0.2;
+      Speed_D=0.0;
+      Turn_KP=1.0;
+      Turn_KD=0.0; 
+    }      
+    Speed_Flag=0;
+  }
+ /********************二档，速度270********************************/ 
+  else if(2==Speed_Choose)
+  {
+    if(11==Speed_Flag)
+    {
+      Car_Sudu=270;//设置目标速度
+      Speed_P=1.0;//速度Kp
+      Speed_I=0.2;//速度Ki
+      Speed_D=0.0;//速度Kd
+      Turn_KP=1.0;//差速Kp
+      Turn_KD=0.0;//差速Kd  
+    }
+   else if(10==Speed_Flag)
+    {
+      Car_Sudu=270;
+      Speed_P=1.0;
+      Speed_I=0.2;
+      Speed_D=0.0;
+      Turn_KP=1.0;
+      Turn_KD=0.0; 
+    }    
+   else if(9==Speed_Flag)
+    {
+      Car_Sudu=270;
+      Speed_P=1.0;
+      Speed_I=0.2;
+      Speed_D=0.0;
+      Turn_KP=1.0;
+      Turn_KD=0.0; 
+    }
+   else if(8==Speed_Flag)
+    {
+      Car_Sudu=270;
+      Speed_P=1.0;
+      Speed_I=0.2;
+      Speed_D=0.0;
+      Turn_KP=1.0;
+      Turn_KD=0.0;   
+    }
+    else if(7==Speed_Flag)
+    {
+      Car_Sudu=270;
+      Speed_P=1.0;
+      Speed_I=0.2;
+      Speed_D=0.0;
+      Turn_KP=1.0;
+      Turn_KD=0.0;      
+    }
+   else if(6==Speed_Flag)
+    {
+      Car_Sudu=270;
+      Speed_P=1.0;
+      Speed_I=0.2;
+      Speed_D=0.0;
+      Turn_KP=1.0;
+      Turn_KD=0.0;     
+    }
+   else if(5==Speed_Flag)
+    {
+      Car_Sudu=270;
+      Speed_P=1.0;
+      Speed_I=0.2;
+      Speed_D=0.0;
+      Turn_KP=1.0;
+      Turn_KD=0.0;    
+    }  
+   else if(4==Speed_Flag)
+    {
+      Car_Sudu=270;
+      Speed_P=1.0;
+      Speed_I=0.2;
+      Speed_D=0.0;
+      Turn_KP=1.0;
+      Turn_KD=0.0;     
+    }  
+   else if(3==Speed_Flag)
+    {
+      Car_Sudu=270;
+      Speed_P=1.0;
+      Speed_I=0.2;
+      Speed_D=0.0;
+      Turn_KP=1.0;
+      Turn_KD=0.0;    
+    }  
+   else if(2==Speed_Flag)
+    {
+      Car_Sudu=270;
+      Speed_P=1.0;
+      Speed_I=0.2;
+      Speed_D=0.0;
+      Turn_KP=1.0;
+      Turn_KD=0.0;       
+    }        
+    else if(1==Speed_Flag)
+    {
+      Car_Sudu=270;
+      Speed_P=1.0;
+      Speed_I=0.2;
+      Speed_D=0.0;
+      Turn_KP=1.0;
+      Turn_KD=0.0;     
+    }
+   else
+    {
+      Car_Sudu=270;
+      Speed_P=1.0;
+      Speed_I=0.2;
+      Speed_D=0.0;
+      Turn_KP=1.0;
+      Turn_KD=0.0; 
+    }      
+    Speed_Flag=0;
+  }
+  /********************三档，速度280********************************/
+ else if(3==Speed_Choose)
+  {
+    if(11==Speed_Flag)
+    {
+      Car_Sudu=270;//设置目标速度
+      Speed_P=1.0;//速度Kp
+      Speed_I=0.2;//速度Ki
+      Speed_D=0.0;//速度Kd
+      Turn_KP=1.0;//差速Kp
+      Turn_KD=0.0;//差速Kd  
+    }
+   else if(10==Speed_Flag)
+    {
+      Car_Sudu=270;
+      Speed_P=1.0;
+      Speed_I=0.2;
+      Speed_D=0.0;
+      Turn_KP=1.0;
+      Turn_KD=0.0; 
+    }    
+   else if(9==Speed_Flag)
+    {
+      Car_Sudu=270;
+      Speed_P=1.0;
+      Speed_I=0.2;
+      Speed_D=0.0;
+      Turn_KP=1.0;
+      Turn_KD=0.0; 
+    }
+   else if(8==Speed_Flag)
+    {
+      Car_Sudu=270;
+      Speed_P=1.0;
+      Speed_I=0.2;
+      Speed_D=0.0;
+      Turn_KP=1.0;
+      Turn_KD=0.0;   
+    }
+    else if(7==Speed_Flag)
+    {
+      Car_Sudu=270;
+      Speed_P=1.0;
+      Speed_I=0.2;
+      Speed_D=0.0;
+      Turn_KP=1.0;
+      Turn_KD=0.0;      
+    }
+   else if(6==Speed_Flag)
+    {
+      Car_Sudu=270;
+      Speed_P=1.0;
+      Speed_I=0.2;
+      Speed_D=0.0;
+      Turn_KP=1.0;
+      Turn_KD=0.0;     
+    }
+   else if(5==Speed_Flag)
+    {
+      Car_Sudu=280;
+      Speed_P=1.0;
+      Speed_I=0.2;
+      Speed_D=0.0;
+      Turn_KP=1.0;
+      Turn_KD=0.0;    
+    }  
+   else if(4==Speed_Flag)
+    {
+      Car_Sudu=280;
+      Speed_P=1.0;
+      Speed_I=0.2;
+      Speed_D=0.0;
+      Turn_KP=1.0;
+      Turn_KD=0.0;     
+    }  
+   else if(3==Speed_Flag)
+    {
+      Car_Sudu=280;
+      Speed_P=1.0;
+      Speed_I=0.2;
+      Speed_D=0.0;
+      Turn_KP=1.0;
+      Turn_KD=0.0;    
+    }  
+   else if(2==Speed_Flag)
+    {
+      Car_Sudu=280;
+      Speed_P=1.0;
+      Speed_I=0.2;
+      Speed_D=0.0;
+      Turn_KP=1.0;
+      Turn_KD=0.0;       
+    }        
+    else if(1==Speed_Flag)
+    {
+      Car_Sudu=280;
+      Speed_P=1.0;
+      Speed_I=0.2;
+      Speed_D=0.0;
+      Turn_KP=1.0;
+      Turn_KD=0.0;     
+    }
+   else
+    {
+      Car_Sudu=250;
+      Speed_P=1.0;
+      Speed_I=0.2;
+      Speed_D=0.0;
+      Turn_KP=1.0;
+      Turn_KD=0.0; 
+    }      
+    Speed_Flag=0;
+  }
+/********************其他，速度250********************************/
+ else 
+  {
     if(11==Speed_Flag)
     {
       Car_Sudu=250;//设置目标速度
@@ -194,7 +537,8 @@ void Speed_Control()
       Turn_KD=0.0; 
     }      
     Speed_Flag=0;
-    
+  }    
+  
     Turn_PD(e);   //计算转向偏差
     zuo_zhuanshu = Car_Sudu-Turn_Out;//差速
     you_zhuanshu = Car_Sudu+Turn_Out;

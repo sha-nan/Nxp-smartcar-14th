@@ -35,6 +35,7 @@ float ec=0.00;//误差和误差变化率
 uint32 turn_out=0;//舵机输出
 uint16 zhidao_flag,wandao_flag,stop_flag;//赛道类型标志
 
+int Speed_Choose=0;
 int Stop_Car=0,TC=0,R_stopcar=0;//停车变量
 
 /*圆环变量*/
@@ -289,8 +290,7 @@ void AD_Date_analyse()
    Slope_AD = 100.00 * sensor_middle;
    sensor5=Slope_AD;//坡道检测电感值
    /*******电池电压********/
-//   Vol=AD_Ave(AD_Vol,ADC_8bit,10)*3300.0/1024.0;
-      
+//   Vol=AD_Ave(AD_Vol,ADC_8bit,10)*3300.0/1024.0;     
 }
 
 /********************开方公式*****************/
@@ -346,7 +346,7 @@ void Run_Control(void)
     case Running://正常跑
 //        turn_error=1000.00*(m_sqrt(sensor1)-m_sqrt(sensor4))/(sensor1+sensor4);
         Run_Flag = 1;
-	    Ring_Control();//环岛检测
+//	    Ring_Control();//环岛检测
         if((sensor1==1&&sensor2==1&&sensor3==1&&sensor4==1||Stop_Car==1))  Run_state = Stop;//冲出赛道保护,停车检测
      break;
     
@@ -392,13 +392,14 @@ void Ring_Control(void)
     case No_Ring://第一步：判断是否出现环
       turn_error=100.0*((sensor1+sensor2)-(sensor4+sensor3))/(sensor1+sensor4+sensor2+sensor3);     
 //      if(sensor2>70&&50<sensor3&&sensor3<80&&sensor1>80&&sensor4>80)//(右环)
-      if(sensor2>20&&40<sensor3&&sensor3<80&&sensor1>80&&sensor4>80)//(右环)      
+      if(sensor2>20&&50<sensor3&&sensor3<70&&sensor1>80&&sensor4>80)//(右环)      
       {
         Ring_state  = Find_Right_Ring;
       }
-      else if(sensor3>20&&40<sensor2&&sensor2<80&&sensor1>80&&sensor4>80)//(左环)
+      else if(sensor3>20&&50<sensor2&&sensor2<70&&sensor1>80&&sensor4>80)//(左环)
 //      else if(sensor3>20&&30<sensor2&&sensor2<80&&sensor1>80&&sensor4>80)//(左环)
       {
+        
         Ring_state  = Find_Left_Ring;
       }
       else
@@ -449,9 +450,9 @@ void Ring_Control(void)
 //        {
         FTM_PWM_Duty(FTM1, FTM_CH0, 1010);//舵机向右打死,右环前一段死值打角处理
         pit_delay_ms(PIT3,340);//延时                
-        if(sensor1<55&&sensor2<15&&sensor3>80&&sensor4>80)
+        if(sensor1<80&&sensor2<10&&sensor3>80&&sensor4>80)
         {
-//           BEEP_ON;//蜂鸣器          
+           BEEP_ON;//蜂鸣器          
            Ring_state = In_Ring;
         }
       }
@@ -464,20 +465,20 @@ void Ring_Control(void)
 //        BEEP_ON;//蜂鸣器
         FTM_PWM_Duty(FTM1, FTM_CH0, 1160);//舵机向左打死,左环前一段死值打角处理
         pit_delay_ms(PIT3,340);//延时                
-        if(sensor1>80&&sensor2>80&&sensor3<15&&sensor4<55)
+        if(sensor1>80&&sensor2>80&&sensor3<10&&sensor4<80)
         {
-//          BEEP_ON;//蜂鸣器
+          BEEP_ON;//蜂鸣器
           Ring_state = In_Ring;
         }
       }
     break;
       
     case In_Ring://第五步：环岛中
-      turn_error=100.0*((sensor1+sensor2)-(sensor4+sensor3))/(sensor1+sensor4+sensor2+sensor3);     
+        turn_error=200.00*(sensor1-sensor4)/(sensor1+sensor4);
 //      if(sensor1>40&&sensor2<20)
-      if(sensor2>20&&30<sensor3&&sensor3<80&&sensor1>80&&sensor4>80)
+      if((sensor2>20&&20<sensor3&&sensor3<70)||(sensor3>20&&20<sensor2&&sensor2<70))
       {
-        BEEP_OFF;//蜂鸣器
+//        BEEP_ON;//蜂鸣器
 //        s1=sensor1;
 //        s2=sensor2;
 //        s3=sensor3;
@@ -495,14 +496,14 @@ void Ring_Control(void)
         s2=sensor2;
         s3=sensor3;
         s4=sensor4;        
-//        BEEP_OFF;
+        BEEP_OFF;
         Ring_state  = Real_Out_Ring;
       }
     break;
     
     case Real_Out_Ring://第七步：出环  四个电感值都减小后  回到无环状态
-      turn_error=100.0*((sensor1+sensor2)-(sensor4+sensor3))/(sensor1+sensor4+sensor2+sensor3);     
-      if(abs(sensor1-sensor2)<=20 && sensor3<=80&&sensor4<=80) //出环条件
+      turn_error=200.0*((sensor1+sensor2)-(sensor4+sensor3))/(sensor1+sensor4+sensor2+sensor3);     
+      if(abs(sensor1-sensor2)<40 && sensor3<80&&sensor4<80) //出环条件
       {
         Ring_state  = No_Ring;
       }
@@ -524,7 +525,12 @@ int16 turn_out_cal()//舵机控制(位置式PD);float kp,float kd
         Speed_Flag=1;
       }
    else
-   {  
+   {
+    switch(BOMA)
+    {
+     /*一档，速度260*/     
+    case 1:
+      Speed_Choose=1;
       if(abs(turn_error)<=10)//直道
       {
         float kp,kd;
@@ -562,7 +568,7 @@ int16 turn_out_cal()//舵机控制(位置式PD);float kp,float kd
         
         float kp,kd;
         kp=1.0;
-        kd=22.00;
+        kd=23.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd; 
         Speed_Flag=6;
       }
@@ -570,7 +576,7 @@ int16 turn_out_cal()//舵机控制(位置式PD);float kp,float kd
       {
         float kp,kd;
         kp=1.0;
-        kd=22.00;
+        kd=23.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=7;        
       }
@@ -578,7 +584,7 @@ int16 turn_out_cal()//舵机控制(位置式PD);float kp,float kd
       {
         float kp,kd;
         kp=1.00;
-        kd=22.00;
+        kd=23.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=8;        
       } 
@@ -586,7 +592,7 @@ int16 turn_out_cal()//舵机控制(位置式PD);float kp,float kd
       {
         float kp,kd;
         kp=1.00;
-        kd=22.00;
+        kd=23.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=9;        
       } 
@@ -594,7 +600,7 @@ int16 turn_out_cal()//舵机控制(位置式PD);float kp,float kd
       {
         float kp,kd;
         kp=1.0;
-        kd=22.00;
+        kd=23.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=10;          
       }       
@@ -602,12 +608,270 @@ int16 turn_out_cal()//舵机控制(位置式PD);float kp,float kd
       {
         float kp,kd;
         kp=1.00;
-        kd=22.00;
+        kd=23.00;
         turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
         Speed_Flag=11;        
       }
-   }      
-  
+      break;
+    /*二档，速度270*/ 
+      
+    case 2:
+      Speed_Choose=2;      
+      if(abs(turn_error)<=10)//直道
+      {
+        float kp,kd;
+        kp=1.0;
+        kd=2.00;
+        turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
+        Speed_Flag=2;        
+      }     
+      else if(abs(turn_error)<=20)//直道
+      {
+        float kp,kd;
+        kp=1.0;
+        kd=2.00;
+        turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
+        Speed_Flag=3;        
+      }      
+      else if(abs(turn_error)<=30)
+      {
+        float kp,kd;
+        kp=1.00;
+        kd=3.00;
+        turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
+        Speed_Flag=4;
+      }     
+      else if(abs(turn_error)<=40)
+      {
+        float kp,kd;
+        kp=1.00;
+        kd=4.00;
+        turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
+        Speed_Flag=5;        
+      }
+      else if(abs(turn_error)<=50)//小s弯
+      {
+        
+        float kp,kd;
+        kp=1.0;
+        kd=23.00;
+        turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd; 
+        Speed_Flag=6;
+      }
+      else if(abs(turn_error)<=60)
+      {
+        float kp,kd;
+        kp=1.0;
+        kd=23.00;
+        turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
+        Speed_Flag=7;        
+      }
+      else if(abs(turn_error)<=70)
+      {
+        float kp,kd;
+        kp=1.00;
+        kd=23.00;
+        turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
+        Speed_Flag=8;        
+      } 
+      else if(abs(turn_error)<=80)
+      {
+        float kp,kd;
+        kp=1.00;
+        kd=23.00;
+        turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
+        Speed_Flag=9;        
+      } 
+      else if(abs(turn_error)<=90)
+      {
+        float kp,kd;
+        kp=1.0;
+        kd=23.00;
+        turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
+        Speed_Flag=10;          
+      }       
+      else 
+      {
+        float kp,kd;
+        kp=1.00;
+        kd=23.00;
+        turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
+        Speed_Flag=11;        
+      }
+      break;
+      
+     /*三档，速度280*/        
+    case 4:
+      Speed_Choose=3;      
+      if(abs(turn_error)<=10)//直道
+      {
+        float kp,kd;
+        kp=1.0;
+        kd=2.00;
+        turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
+        Speed_Flag=2;        
+      }     
+      else if(abs(turn_error)<=20)//直道
+      {
+        float kp,kd;
+        kp=1.0;
+        kd=2.00;
+        turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
+        Speed_Flag=3;        
+      }      
+      else if(abs(turn_error)<=30)
+      {
+        float kp,kd;
+        kp=1.00;
+        kd=3.00;
+        turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
+        Speed_Flag=4;
+      }     
+      else if(abs(turn_error)<=40)
+      {
+        float kp,kd;
+        kp=1.00;
+        kd=4.00;
+        turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
+        Speed_Flag=5;        
+      }
+      else if(abs(turn_error)<=50)//小s弯
+      {
+        
+        float kp,kd;
+        kp=1.0;
+        kd=23.00;
+        turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd; 
+        Speed_Flag=6;
+      }
+      else if(abs(turn_error)<=60)
+      {
+        float kp,kd;
+        kp=1.0;
+        kd=23.00;
+        turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
+        Speed_Flag=7;        
+      }
+      else if(abs(turn_error)<=70)
+      {
+        float kp,kd;
+        kp=1.00;
+        kd=23.00;
+        turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
+        Speed_Flag=8;        
+      } 
+      else if(abs(turn_error)<=80)
+      {
+        float kp,kd;
+        kp=1.00;
+        kd=23.00;
+        turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
+        Speed_Flag=9;        
+      } 
+      else if(abs(turn_error)<=90)
+      {
+        float kp,kd;
+        kp=1.0;
+        kd=23.00;
+        turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
+        Speed_Flag=10;          
+      }       
+      else 
+      {
+        float kp,kd;
+        kp=1.00;
+        kd=23.00;
+        turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
+        Speed_Flag=11;        
+      }
+      break;
+      
+     /*默认，速度250*/        
+    default:
+      if(abs(turn_error)<=10)//直道
+      {
+        float kp,kd;
+        kp=1.0;
+        kd=2.00;
+        turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
+        Speed_Flag=2;        
+      }     
+      else if(abs(turn_error)<=20)//直道
+      {
+        float kp,kd;
+        kp=1.0;
+        kd=2.00;
+        turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
+        Speed_Flag=3;        
+      }      
+      else if(abs(turn_error)<=30)
+      {
+        float kp,kd;
+        kp=1.00;
+        kd=3.00;
+        turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
+        Speed_Flag=4;
+      }     
+      else if(abs(turn_error)<=40)
+      {
+        float kp,kd;
+        kp=1.00;
+        kd=4.00;
+        turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
+        Speed_Flag=5;        
+      }
+      else if(abs(turn_error)<=50)//小s弯
+      {
+        
+        float kp,kd;
+        kp=1.0;
+        kd=23.00;
+        turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd; 
+        Speed_Flag=6;
+      }
+      else if(abs(turn_error)<=60)
+      {
+        float kp,kd;
+        kp=1.0;
+        kd=23.00;
+        turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
+        Speed_Flag=7;        
+      }
+      else if(abs(turn_error)<=70)
+      {
+        float kp,kd;
+        kp=1.00;
+        kd=23.00;
+        turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
+        Speed_Flag=8;        
+      } 
+      else if(abs(turn_error)<=80)
+      {
+        float kp,kd;
+        kp=1.00;
+        kd=23.00;
+        turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
+        Speed_Flag=9;        
+      } 
+      else if(abs(turn_error)<=90)
+      {
+        float kp,kd;
+        kp=1.0;
+        kd=23.00;
+        turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
+        Speed_Flag=10;          
+      }       
+      else 
+      {
+        float kp,kd;
+        kp=1.00;
+        kd=23.00;
+        turn_out = DirectMiddle + (float)kp*turn_error+(turn_error-pre_turn_error)*(float)kd;
+        Speed_Flag=11;        
+      }
+      break;      
+    } 
+   } 
       e = turn_error;//当前偏差        
       ec= turn_error-pre_turn_error;//偏差变化率（当前偏差和上次偏差的差值）    
       pre_turn_error=turn_error;     
