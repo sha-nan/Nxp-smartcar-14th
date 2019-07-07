@@ -14,6 +14,7 @@ extern uint16 sensor1,sensor2;
 extern float turn_error,turn_lasterror;//转向误差
 extern uint8 Go_Ring_Flag;//进环减速标志
 extern uint8 Out_Ring_Flag;//出环检测标志
+
 /*函数声明*/
 extern void get_speed();
 extern void Speed_Control();
@@ -432,130 +433,130 @@ void Speed_Control()
     if(1==Go_Ring_Flag)//进环减速标志
     {
       Car_Sudu=240;//设置目标速度
-      Speed_P=0.05;//速度Kp
-      Speed_I=0.1;//速度Ki
-      Speed_D=0.1;//速度Kd
+      Speed_P=0.04;//速度Kp
+      Speed_I=1.1;//速度Ki
+      Speed_D=0.01;//速度Kd
       Turn_KP=1.0;//差速Kp
       Turn_KD=0.0;//差速Kd
       Go_Ring_Flag=0;//清除进环减速标志
     }
     else if(1==Out_Ring_Flag)
     {
-      Car_Sudu=230;//设置目标速度
-      Speed_P=0.1;//速度Kp
-      Speed_I=0.06;//速度Ki
-      Speed_D=0.1;//速度Kd
+      Car_Sudu=200;//设置目标速度
+      Speed_P=2.0;//速度Kp
+      Speed_I=5.0;//速度Ki
+      Speed_D=0.01;//速度Kd
       Turn_KP=1.0;//差速Kp
       Turn_KD=0.0;//差速Kd
       Out_Ring_Flag=0;//出环减速标志
-    }    
+    }   
     else if(11==Speed_Flag)
     {
       Car_Sudu=250;//设置目标速度
-      Speed_P=0.5;//速度Kp
-      Speed_I=0.6;//速度Ki
-      Speed_D=0.1;//速度Kd
+      Speed_P=0.0;//速度Kp
+      Speed_I=0.3;//速度Ki
+      Speed_D=0.0;//速度Kd
       Turn_KP=1.0;//差速Kp
       Turn_KD=0.0;//差速Kd  
     }
    else if(10==Speed_Flag)
     {
       Car_Sudu=250;
-      Speed_P=0.5;
-      Speed_I=0.6;
-      Speed_D=0.1;
+      Speed_P=0.0;
+      Speed_I=0.3;
+      Speed_D=0.0;
       Turn_KP=1.0;
       Turn_KD=0.0; 
     }    
    else if(9==Speed_Flag)
     {
       Car_Sudu=250;
-      Speed_P=0.5;
-      Speed_I=0.6;
-      Speed_D=0.1;
+      Speed_P=0.0;
+      Speed_I=0.3;
+      Speed_D=0.0;
       Turn_KP=1.0;
-      Turn_KD=0.0; 
+      Turn_KD=0.0;  
     }
    else if(8==Speed_Flag)
     {
       Car_Sudu=250;
-      Speed_P=0.5;
-      Speed_I=0.6;
-      Speed_D=0.1;
+      Speed_P=0.0;
+      Speed_I=0.3;
+      Speed_D=0.0;
       Turn_KP=1.0;
-      Turn_KD=0.0;   
+      Turn_KD=0.0;    
     }
     else if(7==Speed_Flag)
     {
       Car_Sudu=250;
-      Speed_P=0.5;
-      Speed_I=0.6;
-      Speed_D=0.1;
+      Speed_P=0.0;
+      Speed_I=0.3;
+      Speed_D=0.0;
       Turn_KP=1.0;
       Turn_KD=0.0;      
     }
    else if(6==Speed_Flag)
     {
       Car_Sudu=250;
-      Speed_P=0.5;
-      Speed_I=0.6;
-      Speed_D=0.1;
+      Speed_P=0.0;
+      Speed_I=0.3;
+      Speed_D=0.0;
       Turn_KP=1.0;
-      Turn_KD=0.0;     
+      Turn_KD=0.0;      
     }
    else if(5==Speed_Flag)
     {
       Car_Sudu=250;
-      Speed_P=0.5;
-      Speed_I=0.6;
-      Speed_D=0.1;
+      Speed_P=0.0;
+      Speed_I=0.3;
+      Speed_D=0.0;
       Turn_KP=1.0;
       Turn_KD=0.0;    
     }  
    else if(4==Speed_Flag)
     {
       Car_Sudu=250;
-      Speed_P=0.5;
-      Speed_I=0.6;
-      Speed_D=0.1;
+      Speed_P=0.0;
+      Speed_I=0.3;
+      Speed_D=0.0;
       Turn_KP=1.0;
       Turn_KD=0.0;     
     }  
    else if(3==Speed_Flag)
     {
       Car_Sudu=250;
-      Speed_P=0.5;
-      Speed_I=0.6;
-      Speed_D=0.1;
+      Speed_P=0.0;
+      Speed_I=0.3;
+      Speed_D=0.0;
       Turn_KP=1.0;
       Turn_KD=0.0;    
     }  
    else if(2==Speed_Flag)
     {
       Car_Sudu=250;
-      Speed_P=0.5;
-      Speed_I=0.6;
-      Speed_D=0.1;
+      Speed_P=0.0;
+      Speed_I=0.3;
+      Speed_D=0.0;
       Turn_KP=1.0;
-      Turn_KD=0.0;       
+      Turn_KD=0.0;        
     }        
     else if(1==Speed_Flag)
     {
       Car_Sudu=250;
-      Speed_P=0.5;
-      Speed_I=0.6;
-      Speed_D=0.1;
+      Speed_P=0.0;
+      Speed_I=0.3;
+      Speed_D=0.0;
       Turn_KP=1.0;
-      Turn_KD=0.0;     
+      Turn_KD=0.0;      
     }
    else
     {
       Car_Sudu=250;
-      Speed_P=2.0;
-      Speed_I=0.6;
-      Speed_D=0.1;
+      Speed_P=0.0;
+      Speed_I=0.3;
+      Speed_D=0.0;
       Turn_KP=1.0;
-      Turn_KD=0.0; 
+      Turn_KD=0.0;  
     }      
     Speed_Flag=0;
   }    
