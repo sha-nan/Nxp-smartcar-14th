@@ -1,2 +1,3 @@
 # Nxp-smartcar-14th
-Shenyang University of Chemical Technology
+沉阳化工大学
+沉阳化工大学 - 平头哥队
