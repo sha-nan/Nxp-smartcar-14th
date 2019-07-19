@@ -46,13 +46,12 @@ void wildWolf_init(void)//初始化
        NVIC_SetPriorityGrouping(NVIC_PriorityGroup_4);
        NVIC_SetPriority(PORTB_IRQn,0);          //第一优先: 红外检测中断
        NVIC_SetPriority(PIT0_IRQn, 1);          //第三优先: 10ms控制舵机中断
-       NVIC_SetPriority(FTM2_IRQn, 2);          //第一优先: 输入捕捉，下降沿触发中断
-       NVIC_SetPriority(PIT1_IRQn, 3);          //第二优先: 1ms定时器中断（控制电机）
-       
+       NVIC_SetPriority(FTM2_IRQn, 1);          //第一优先: 输入捕捉，下降沿触发中断
+       NVIC_SetPriority(PIT1_IRQn, 2);          //第二优先: 1ms定时器中断（控制电机）       
        set_vector_handler(PORTB_VECTORn ,PORTB_IRQHandler);//设置PORTB的中断服务函数为PORTB_IRQHandler
        enable_irq(PORTB_IRQn);
        
-       pit_init_ms(PIT0,5);  //10ms定时中断，AD采集
+       pit_init_ms(PIT0,10);  //10ms定时中断，AD采集
        set_vector_handler(PIT0_VECTORn ,PIT0_IRQHandler);//设置 PIT0 的中断复位函数为 PIT0_IRQHandler
        enable_irq(PIT0_IRQn);
        

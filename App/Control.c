@@ -4,17 +4,28 @@
 #include  "MK60_FTM.h"
 #include  "MK60_PIT.h"     //周期中断计时器
 #include "MK60_adc.h"
+/*速度选择*/
+#define Speed_0 250
+#define Speed_1 260
+#define Speed_2 270
+#define Speed_3 280
+#define Speed_PoDao 300
+
+int i=0,j=0;//坡道电机速度延时
 
 int16 Turn_Out;
 int16 Error;
 int16 Car_Sudu;
 int16 zhuangshu,zuo_zhuanshu,you_zhuanshu,zuo_error,you_error;//编码器转数期望值
 float Turn_KP,Turn_KD;
+
+int PoDao_Speed=0;//坡道速度
+
 extern uint16 sensor1,sensor2;
 extern float turn_error,turn_lasterror;//转向误差
 extern uint8 Go_Ring_Flag;//进环减速标志
 extern uint8 Out_Ring_Flag;//出环检测标志
-
+extern uint8 PoDao_Flag; 
 /*函数声明*/
 extern void get_speed();
 extern void Speed_Control();
@@ -93,7 +104,7 @@ void Speed_Control()
   {
     if(11==Speed_Flag)
     {
-      Car_Sudu=260;//设置目标速度
+      Car_Sudu=Speed_1;//设置目标速度
       Speed_P=1.0;//速度Kp
       Speed_I=0.2;//速度Ki
       Speed_D=0.0;//速度Kd
@@ -102,7 +113,7 @@ void Speed_Control()
     }
    else if(10==Speed_Flag)
     {
-      Car_Sudu=260;
+      Car_Sudu=Speed_1;
       Speed_P=1.0;
       Speed_I=0.2;
       Speed_D=0.0;
@@ -111,7 +122,7 @@ void Speed_Control()
     }    
    else if(9==Speed_Flag)
     {
-      Car_Sudu=260;
+      Car_Sudu=Speed_1;
       Speed_P=1.0;
       Speed_I=0.2;
       Speed_D=0.0;
@@ -120,7 +131,7 @@ void Speed_Control()
     }
    else if(8==Speed_Flag)
     {
-      Car_Sudu=260;
+      Car_Sudu=Speed_1;
       Speed_P=1.0;
       Speed_I=0.2;
       Speed_D=0.0;
@@ -129,7 +140,7 @@ void Speed_Control()
     }
     else if(7==Speed_Flag)
     {
-      Car_Sudu=260;
+      Car_Sudu=Speed_1;
       Speed_P=1.0;
       Speed_I=0.2;
       Speed_D=0.0;
@@ -138,7 +149,7 @@ void Speed_Control()
     }
    else if(6==Speed_Flag)
     {
-      Car_Sudu=260;
+      Car_Sudu=Speed_1;
       Speed_P=1.0;
       Speed_I=0.2;
       Speed_D=0.0;
@@ -147,7 +158,7 @@ void Speed_Control()
     }
    else if(5==Speed_Flag)
     {
-      Car_Sudu=260;
+      Car_Sudu=Speed_1;
       Speed_P=1.0;
       Speed_I=0.2;
       Speed_D=0.0;
@@ -156,7 +167,7 @@ void Speed_Control()
     }  
    else if(4==Speed_Flag)
     {
-      Car_Sudu=260;
+      Car_Sudu=Speed_1;
       Speed_P=1.0;
       Speed_I=0.2;
       Speed_D=0.0;
@@ -165,7 +176,7 @@ void Speed_Control()
     }  
    else if(3==Speed_Flag)
     {
-      Car_Sudu=260;
+      Car_Sudu=Speed_1;
       Speed_P=1.0;
       Speed_I=0.2;
       Speed_D=0.0;
@@ -174,7 +185,7 @@ void Speed_Control()
     }  
    else if(2==Speed_Flag)
     {
-      Car_Sudu=260;
+      Car_Sudu=Speed_1;
       Speed_P=1.0;
       Speed_I=0.2;
       Speed_D=0.0;
@@ -183,7 +194,7 @@ void Speed_Control()
     }        
     else if(1==Speed_Flag)
     {
-      Car_Sudu=260;
+      Car_Sudu=Speed_1;
       Speed_P=1.0;
       Speed_I=0.2;
       Speed_D=0.0;
@@ -192,7 +203,7 @@ void Speed_Control()
     }
    else
     {
-      Car_Sudu=260;
+      Car_Sudu=Speed_1;
       Speed_P=1.0;
       Speed_I=0.2;
       Speed_D=0.0;
@@ -206,7 +217,7 @@ void Speed_Control()
   {
     if(11==Speed_Flag)
     {
-      Car_Sudu=270;//设置目标速度
+      Car_Sudu=Speed_2;//设置目标速度
       Speed_P=1.0;//速度Kp
       Speed_I=0.2;//速度Ki
       Speed_D=0.0;//速度Kd
@@ -215,7 +226,7 @@ void Speed_Control()
     }
    else if(10==Speed_Flag)
     {
-      Car_Sudu=270;
+      Car_Sudu=Speed_2;
       Speed_P=1.0;
       Speed_I=0.2;
       Speed_D=0.0;
@@ -224,7 +235,7 @@ void Speed_Control()
     }    
    else if(9==Speed_Flag)
     {
-      Car_Sudu=270;
+      Car_Sudu=Speed_2;
       Speed_P=1.0;
       Speed_I=0.2;
       Speed_D=0.0;
@@ -233,7 +244,7 @@ void Speed_Control()
     }
    else if(8==Speed_Flag)
     {
-      Car_Sudu=270;
+      Car_Sudu=Speed_2;
       Speed_P=1.0;
       Speed_I=0.2;
       Speed_D=0.0;
@@ -242,7 +253,7 @@ void Speed_Control()
     }
     else if(7==Speed_Flag)
     {
-      Car_Sudu=270;
+      Car_Sudu=Speed_2;
       Speed_P=1.0;
       Speed_I=0.2;
       Speed_D=0.0;
@@ -251,7 +262,7 @@ void Speed_Control()
     }
    else if(6==Speed_Flag)
     {
-      Car_Sudu=270;
+      Car_Sudu=Speed_2;
       Speed_P=1.0;
       Speed_I=0.2;
       Speed_D=0.0;
@@ -260,7 +271,7 @@ void Speed_Control()
     }
    else if(5==Speed_Flag)
     {
-      Car_Sudu=270;
+      Car_Sudu=Speed_2;
       Speed_P=1.0;
       Speed_I=0.2;
       Speed_D=0.0;
@@ -269,7 +280,7 @@ void Speed_Control()
     }  
    else if(4==Speed_Flag)
     {
-      Car_Sudu=270;
+      Car_Sudu=Speed_2;
       Speed_P=1.0;
       Speed_I=0.2;
       Speed_D=0.0;
@@ -278,7 +289,7 @@ void Speed_Control()
     }  
    else if(3==Speed_Flag)
     {
-      Car_Sudu=270;
+      Car_Sudu=Speed_2;
       Speed_P=1.0;
       Speed_I=0.2;
       Speed_D=0.0;
@@ -287,7 +298,7 @@ void Speed_Control()
     }  
    else if(2==Speed_Flag)
     {
-      Car_Sudu=270;
+      Car_Sudu=Speed_2;
       Speed_P=1.0;
       Speed_I=0.2;
       Speed_D=0.0;
@@ -296,7 +307,7 @@ void Speed_Control()
     }        
     else if(1==Speed_Flag)
     {
-      Car_Sudu=270;
+      Car_Sudu=Speed_2;
       Speed_P=1.0;
       Speed_I=0.2;
       Speed_D=0.0;
@@ -305,7 +316,7 @@ void Speed_Control()
     }
    else
     {
-      Car_Sudu=270;
+      Car_Sudu=Speed_2;
       Speed_P=1.0;
       Speed_I=0.2;
       Speed_D=0.0;
@@ -430,10 +441,22 @@ void Speed_Control()
 /********************其他，速度250********************************/
  else 
   {
-    if(1==Go_Ring_Flag)//进环减速标志
+    if(1==PoDao_Flag)//坡道标志&&turn_error<=40
+    {
+//      Car_Sudu=Speed_PoDao;//设置目标速度
+      Car_Sudu=600;//设置目标速度      
+      Speed_P=0.0;//速度Kp
+      Speed_I=1.0;//速度Ki
+      Speed_D=0.05;//速度Kd
+      Turn_KP=1.0;//差速Kp
+      Turn_KD=0.0;//差速Kd
+      PoDao_Flag=0; //清除坡道标志
+      PoDao_Speed=1;//坡道速度标志
+    }    
+    else if(1==Go_Ring_Flag)//进环减速标志
     {
       Car_Sudu=240;//设置目标速度
-      Speed_P=0.04;//速度Kp
+      Speed_P=0.0;//速度Kp
       Speed_I=1.1;//速度Ki
       Speed_D=0.01;//速度Kd
       Turn_KP=1.0;//差速Kp
@@ -445,16 +468,16 @@ void Speed_Control()
       Car_Sudu=200;//设置目标速度
       Speed_P=2.0;//速度Kp
       Speed_I=5.0;//速度Ki
-      Speed_D=0.01;//速度Kd
+      Speed_D=0.0;//速度Kd
       Turn_KP=1.0;//差速Kp
       Turn_KD=0.0;//差速Kd
       Out_Ring_Flag=0;//出环减速标志
     }   
-    else if(11==Speed_Flag)
+   else if(11==Speed_Flag)
     {
       Car_Sudu=250;//设置目标速度
       Speed_P=0.0;//速度Kp
-      Speed_I=0.3;//速度Ki
+      Speed_I=0.4;//速度Ki
       Speed_D=0.0;//速度Kd
       Turn_KP=1.0;//差速Kp
       Turn_KD=0.0;//差速Kd  
@@ -463,7 +486,7 @@ void Speed_Control()
     {
       Car_Sudu=250;
       Speed_P=0.0;
-      Speed_I=0.3;
+      Speed_I=0.6;
       Speed_D=0.0;
       Turn_KP=1.0;
       Turn_KD=0.0; 
@@ -472,7 +495,7 @@ void Speed_Control()
     {
       Car_Sudu=250;
       Speed_P=0.0;
-      Speed_I=0.3;
+      Speed_I=0.6;
       Speed_D=0.0;
       Turn_KP=1.0;
       Turn_KD=0.0;  
@@ -481,7 +504,7 @@ void Speed_Control()
     {
       Car_Sudu=250;
       Speed_P=0.0;
-      Speed_I=0.3;
+      Speed_I=0.6;
       Speed_D=0.0;
       Turn_KP=1.0;
       Turn_KD=0.0;    
@@ -490,16 +513,16 @@ void Speed_Control()
     {
       Car_Sudu=250;
       Speed_P=0.0;
-      Speed_I=0.3;
+      Speed_I=0.6;
       Speed_D=0.0;
       Turn_KP=1.0;
       Turn_KD=0.0;      
     }
    else if(6==Speed_Flag)
     {
-      Car_Sudu=250;
+      Car_Sudu=Speed_0;
       Speed_P=0.0;
-      Speed_I=0.3;
+      Speed_I=0.6;
       Speed_D=0.0;
       Turn_KP=1.0;
       Turn_KD=0.0;      
@@ -508,7 +531,7 @@ void Speed_Control()
     {
       Car_Sudu=250;
       Speed_P=0.0;
-      Speed_I=0.3;
+      Speed_I=0.6;
       Speed_D=0.0;
       Turn_KP=1.0;
       Turn_KD=0.0;    
@@ -517,7 +540,7 @@ void Speed_Control()
     {
       Car_Sudu=250;
       Speed_P=0.0;
-      Speed_I=0.3;
+      Speed_I=0.6;
       Speed_D=0.0;
       Turn_KP=1.0;
       Turn_KD=0.0;     
@@ -526,7 +549,7 @@ void Speed_Control()
     {
       Car_Sudu=250;
       Speed_P=0.0;
-      Speed_I=0.3;
+      Speed_I=0.6;
       Speed_D=0.0;
       Turn_KP=1.0;
       Turn_KD=0.0;    
@@ -535,7 +558,7 @@ void Speed_Control()
     {
       Car_Sudu=250;
       Speed_P=0.0;
-      Speed_I=0.3;
+      Speed_I=0.6;
       Speed_D=0.0;
       Turn_KP=1.0;
       Turn_KD=0.0;        
@@ -544,7 +567,7 @@ void Speed_Control()
     {
       Car_Sudu=250;
       Speed_P=0.0;
-      Speed_I=0.3;
+      Speed_I=0.6;
       Speed_D=0.0;
       Turn_KP=1.0;
       Turn_KD=0.0;      
@@ -553,7 +576,7 @@ void Speed_Control()
     {
       Car_Sudu=250;
       Speed_P=0.0;
-      Speed_I=0.3;
+      Speed_I=0.6;
       Speed_D=0.0;
       Turn_KP=1.0;
       Turn_KD=0.0;  
@@ -571,6 +594,17 @@ void Speed_Control()
         Motor_output2(0);
         BEEP_OFF;//蜂鸣器        
       }
+    else if(1==PoDao_Speed)
+      {
+
+         Motor_output1(Speed_PID(zuo_zhuanshu,Left_Speed));
+         Motor_output2(Speed_PID(you_zhuanshu,Right_Speed));
+
+//        Motor_output1(3000);
+//        Motor_output2(3000);        
+        PTC5_OUT=0;
+        PoDao_Speed=0;
+      }      
     else
       {
         Motor_output1(Speed_PID(zuo_zhuanshu,Left_Speed));
